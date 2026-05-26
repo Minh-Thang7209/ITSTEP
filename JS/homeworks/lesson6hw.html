@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img {
+            height: 50px;
+            width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 1 -->
+    <input type="range" min="0" max="100">
+    <!-- 2 -->
+    <button id="left">
+        <=</button>
+            <img id="slider"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/500px-Unofficial_JavaScript_logo_2.svg.png"
+                alt="">
+            <button id="right">=></button>
+            <!-- 3 -->
+            <details name="details">
+                <summary>What is Lorem Ipsum?</summary>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, delectus?</p>
+            </details>
+            <details name="details">
+                <summary>Why do we use it?</summary>
+                <p>It is a long established fact that a reader will be distracted by the readable content of a page when
+                    looking at its layout.</p>
+            </details>
+            <details name="details">
+                <summary>Where does it come from?</summary>
+                <p>Contrary to popular belief, Lorem Ipsum is not simply random text.</p>
+            </details>
+            <details name="details">
+                <summary>Where can I get some</summary>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim quas nihil dolores doloremque
+                    voluptatibus reprehenderit, dolorem dolorum amet vel a tenetur. Unde cum ab provident! Deserunt
+                    iusto amet cumque perspiciatis?</p>
+            </details>
+            <script>
+                // 2
+                const images = [
+                    "https://upload.wikimedia.org/wikipedia/commons/a/ab/Official_CSS_Logo.svg?utm_source=ru.wikipedia.org&utm_campaign=index&utm_content=original",
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/500px-Unofficial_JavaScript_logo_2.svg.png",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEc9A_S6BPxCDRp5WjMFEfXrpCu1ya2OO-Lw&s",
+                ]
+
+                let currentImageIndex = 1;
+                const slider = document.getElementById("slider");
+                const leftButton = document.getElementById("left");
+                const rightButton = document.getElementById("right");
+
+                function updateImage() {
+                    slider.src = images[currentImageIndex];
+                    leftButton.disabled = currentImageIndex === 0;
+                    rightButton.disabled = currentImageIndex === images.length - 1;
+                }
+                leftButton.addEventListener("click", () => {
+                    if (currentImageIndex > 0) {
+                        currentImageIndex--;
+                        updateImage();
+                    }
+                });
+                rightButton.addEventListener("click", () => {
+                    if (currentImageIndex < images.length - 1) {
+                        currentImageIndex++;
+                        updateImage();
+                    }
+                });
+            </script>
+</body>
+
+</html>
