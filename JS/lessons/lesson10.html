@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+       const user = {
+            firstName: 'Олег',
+            age: 25,
+            isActive: true,
+            sayHello: function () { console.log("Привіт"); },
+            secreteFeature: null
+        };
+
+        const jsonString = JSON.stringify(user, null, 2);
+        console.log(jsonString);
+
+        const jsonStr = '{"name": "Анна", "role": "admin", "skills": ["JS", "Reack"]}';
+        const userData = JSON.parse(jsonStr);
+        console.log(userData.name);
+        console.log(userData.skills[0]);
+
+        const badJsonText = '{"name": "Іван",}';
+        try {
+            throw new Error("test");
+
+            const data = JSON.parse(badJsonText);
+        } catch (error) {
+            console.log(error.name);
+            if (error.name === "SyntaxError") {
+                console.log("Обережно! Сервер надіслав некоректний JSON: ", error.message);
+            }
+        }
+
+        localStorage.setItem("some data", "qwerty1234");
+        localStorage.setItem("user", JSON.stringify(user));
+
+        const newUser = {
+            firstName: 'Іван',
+            lastName: 'Франко',
+            age: 30,
+            passwordHash: "super_secret_hash_123",
+            creditCard: "4111-1111-1111-1111",
+
+            toJSON() {
+                return {
+                    fullName: `${this.firstName} ${this.lastName}`,
+                    age: this.age,
+                    role: "customer"
+                };
+            }
+        }
+
+        console.log(JSON.stringify(newUser));
+    </script>
+</body>
+</html>
