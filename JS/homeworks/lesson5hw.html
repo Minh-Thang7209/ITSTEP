@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //1
+        class Marker {
+            constructor(color, ink = 100) {
+                this.color = color;
+                this.ink = ink;
+            }
+
+            print(text) {
+                let result = "";
+
+                for (let char of text) {
+                    if (this.ink <= 0) break;
+
+                    result += char;
+
+                    if (char !== " ") {
+                        this.ink -= 0.5;
+                    }
+                }
+
+                console.log(`%c${result}`, `color: ${this.color}`);
+                console.log(`Rest ink: ${this.ink}%`);
+            }
+        }
+
+        class RefillableMarker extends Marker {
+            refill() {
+                this.ink = 100;
+            }
+        }
+
+        const marker1 = new Marker();
+        const marker2 = new RefillableMarker("blue", 10);
+        marker1.print("Hello World!");
+        marker2.refill();
+        marker1.print("After refill text");
+
+        //2
+        class ExtendedDate extends Date {
+            constructor(...args) {
+                super(...args);
+            }
+
+            getTextDate() {
+                const months = ["January", "February", "March", "April",
+                    "May", "June", "July", "August",
+                    "September", "October", "November", "December"];
+
+                return `${this.getDate()} ${months[this.getMonth()]}`;
+            }
+
+            isFutureOrToday() {
+                const now = new Date();
+
+                // якщо дата >= сьогодні → true
+                return this.getTime() >= now.setHours(0, 0, 0, 0);
+            }
+
+            isLeapYear() {
+                const year = this.getFullYear();
+
+                return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+            }
+
+            getNextDate() {
+                const next = new Date(this);
+                next.setDate(this.getDate() + 1);
+                return next;
+            }
+        }
+
+        const date = new ExtendedDate(2026, 4, 18);
+
+        console.log(date.getTextDate());
+
+        //3
+        class Employee {
+            constructor(name, position, salary) {
+                this.name = name;
+                this.position = position;
+                this.salary = salary;
+            }
+        }
+
+        class EmpTable {
+            constructor(employees) {
+                this.employees = employees;
+            }
+
+            getHtml() {
+                let html = `
+<table border="1">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Salary</th>
+        </tr>
+    </thead>
+    <tbody>
+`;
+
+                for (let emp of this.employees) {
+                    html += `
+        <tr>
+            <td>${emp.name}</td>
+            <td>${emp.position}</td>
+            <td>${emp.salary}</td>
+        </tr>
+`;
+                }
+
+                html += `
+    </tbody>
+</table>
+`;
+                return html;
+            }
+        }
+
+        //4
+        class StyledEmpTable extends EmpTable {
+
+            getStyles() {
+                return `
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        font-family: Arial;
+    }
+
+    th, td {
+        border: 1px solid #333;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+`;
+            }
+
+            getHtml() {
+                return this.getStyles() + super.getHtml();
+            }
+        }
+
+        const employees = [
+            new Employee("Ivan Petrenko", "Manager", 3000),
+            new Employee("Anna Kovalenko", "Cashier", 1800),
+            new Employee("Oleh Shevchenko", "Security", 1500)
+        ];
+
+        const table = new StyledEmpTable(employees);
+
+        document.body.innerHTML = table.getHtml();
+    </script>
+</body>
+
+</html>

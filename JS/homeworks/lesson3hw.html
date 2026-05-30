@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //1
+        // const car = {
+        //     brand: 'Toyota',
+        //     model: 'Corolla',
+        //     year: 2020,
+        //     AvgSpeed: 60,
+        //     showInfo: function(){
+        //         console.log('Brand:' + this.brand),
+        //         console.log('Model:' + this.model),
+        //         console.log('Year:' + this.year),
+        //         console.log('Average Speed:' + this.AvgSpeed)
+        //     }, 
+        //     Time: function(distance){
+        //         let time = distance / this.AvgSpeed;
+        //         let restTime = Math.floor(time / 4);
+        //         let totalTime = time + restTime;
+        //         console.log('Total Time:' + totalTime + ' hours');
+        //     }
+        // }
+        // car.showInfo();
+        // car.Time(300);
+        //2
+        // const fraction = {
+        //     numerator: 2,
+        //     denominator: 4,
+        //     addFraction: function(otherFraction){
+        //         this.denominator *= otherFraction.denominator;
+        //         this.numerator = this.numerator * otherFraction.denominator + otherFraction.numerator * this.denominator;
+        //     },
+        //     minusFraction: function(otherFraction){
+        //         this.denominator *= otherFraction.denominator;
+        //         this.numerator = this.numerator * otherFraction.denominator - otherFraction.numerator * this.denominator;
+        //     },
+        //     multiplyFraction: function(otherFraction){
+        //         this.numerator *= otherFraction.numerator;
+        //         this.denominator *= otherFraction.denominator;
+        //     },
+        //     divideFraction: function(otherFraction){
+        //         this.numerator *= otherFraction.denominator;
+        //         this.denominator *= otherFraction.numerator;
+        //     },
+        //     reduceFraction: function(){
+        //         let a = this.numerator;
+        //         let b = this.denominator;
+        //         while(b!== 0){
+        //             let temp = b;
+        //             b = a % b;
+        //             a = temp;
+        //         }
+        //         this.numerator /= a;
+        //         this.denominator /= a;
+        //     }
+        // }
+
+        // function Fraction(numerator, denominator){
+        //     this.numerator = numerator;
+        //     this.denominator = denominator;
+        // }
+
+        // const fraction1 = new Fraction(1, 3);
+        // fraction.addFraction(fraction1);
+        // console.log('After addition: ' + fraction.numerator + '/' + fraction.denominator);
+        // fraction.minusFraction(fraction1);
+        // console.log('After subtraction: ' + fraction.numerator + '/' + fraction.denominator);
+        // fraction.multiplyFraction(fraction1);
+        // console.log('After multiplication: ' + fraction.numerator + '/' + fraction.denominator);
+        // fraction.divideFraction(fraction1);
+        // console.log('After division: ' + fraction.numerator + '/' + fraction.denominator);
+        // fraction.reduceFraction();
+        // console.log('After reduction: ' + fraction.numerator + '/' + fraction.denominator);
+        //3
+        // const time = {
+        //     hours: 0,
+        //     minutes: 0,
+        //     seconds: 0,
+        //     ShowTime: function(time){
+        //         console.log('Time: ' + time.hours + ':' + time.minutes + ':' + time.seconds);
+        //     },
+        //     ChangeTimeSecond: function(seconds, time){
+        //         let totalSeconds = 
+        //         time.hours * 3600 + time.minutes * 60 + time.seconds;
+        //         totalSeconds += seconds,
+        //         time.hours = Math.floor(totalSeconds / 3600);
+        //         time.minutes = Math.floor((totalSeconds % 3600) / 60);
+        //         time.seconds = totalSeconds % 60;
+        //         console.log("Time: " + time.hours + ':' + time.minutes + ':' + time.seconds);
+        //     },
+        //     ChangeTimeMinute: function(minutes, time){
+        //         let totalMinutes = 
+        //         time.hours * 60 + time.minutes;
+        //         totalMinutes += minutes,
+        //         time.hours = Math.floor(totalMinutes / 60);
+        //         time.minutes = Math.floor(totalMinutes % 60);
+        //         console.log("Time: " + time.hours + ':' + time.minutes + ':' + time.seconds);
+        //     },
+        //     ChangeTimehours: function(hours, time){
+        //         time.hours += hours;
+        //         console.log("Time: " + time.hours + ':' + time.minutes + ':' + time.seconds);
+        //     }
+        // }
+        // function Time(hours, minutes, seconds){
+        //     this.hours = hours,
+        //     this.minutes = minutes,
+        //     this.seconds = seconds
+        // }
+        // const time1 = new Time(2, 30, 45);
+        // const time2 = new Time(4, 40, 50);
+        // const time3 = new Time(5, 10, 40);
+
+        // time.ShowTime(time1);
+        // time.ChangeTimeSecond(125, time1);
+        // time.ChangeTimeMinute(50, time2);
+        // time.ChangeTimehours(4, time3);
+    </script>
+</body>
+</html>

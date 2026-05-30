@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //1
+        class PrintMaсhine {
+            constructor(fontSize, fontColor, fontFamily) {
+                this.fontSize = fontSize;
+                this.fontColor = fontColor;
+                this.fontFamily = fontFamily;
+            }
+
+            print(text) {
+                document.write(`
+                    <p style = "font size: ${this.fontSize}px; color: ${this.fontColor}; font-family: ${this.fontFamily}">${text}</p>
+                `)
+            }
+        };
+
+
+        const printer = new PrintMaсhine(12, "blue", "Arial");
+        printer.print("Hello, world!");
+
+        2
+        let tags = ["#lorem", "#ipsum", "#text"];
+        class News {
+            constructor(title, date, text, arrayTag) {
+                this.title = title;
+                this.text = text;
+                this.arrayTag = arrayTag;
+                this.date = date;
+            }
+
+            static formatDate(date) {
+                const now = new Date();
+                const diff = now - date;
+                const day = 24 * 60 * 60 * 1000;
+                const days = Math.floor(diff / day);
+                if (days < 1) {
+                    return "today"
+                } else if (days < 7) {
+                    return `${days} day ago`;
+                } else {
+                    const formatter = new Intl.DateTimeFormat("uk-UA", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric"
+                    });
+                    console.log(formatter.format(day));
+                }
+            }
+
+            print() {
+                document.write(`
+                <h1>${this.title}</h1>
+                <span>${this.date}</span>
+                <p>${this.text}</p>
+                <p>${this.arrayTag.join(' ')}</p> 
+                `);
+            }
+        }
+        const news1 = new News("What is lorem Ipsum?", News.formatDate(new Date("2026-05-14T10:00:00")), "Lorem Ipsum is sumply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard...", tags);
+        news1.print();
+        //3
+        class News {
+            constructor(arrayNews) {
+                this.arrayNews = []
+            }
+            get getAmountNews() {
+                return this.arrayNews.length;
+            }
+
+            showNews() {
+                this.news.forEach((item, i) => {
+                    console.log(
+                        `${i + 1}. ${item.title} | ${item.date} | tags: ${item.tags.join(", ")}`
+                    );
+                });
+            }
+
+            addNews(item) {
+                this.arrayNews.push(item);
+            }
+
+            removeNews(index) {
+                if (index >= 0 && index < this.news.length) {
+                    this.news.splice(index, 1);
+                }
+            }
+
+            sortByDate() {
+                this.news.sort((a, b) => new Date(b.date) - new Date(a.date));
+            }
+
+            searchByTag(tag) {
+                return this.news.filter(item => item.tags.includes(tag));
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //1
+        class Button{
+            constructor(width, height, text){
+                this.width = width;
+                this.height = height;
+                this.text = text;
+            }
+
+            showButton(){
+                document.write(`<button type = "button" style = "width: ${this.width}px; height: ${this.height}">${this.text}</button>`);
+            }
+        }
+        const button1 = new Button(80, 50,  "button");
+        button1.showButton();
+
+        class BootstrapButton extends Button{
+            constructor(width, height, text, color){
+                super(width, height, text);
+                this.color = color;
+            }
+
+            showButton(){
+                document.write(`<button type = "button" style = "width: ${this.width}px; height: ${this.height}px; background-color: ${this.color}">${this.text}</button>`);
+            }
+        }
+        const bootstrapbutton1 = new BootstrapButton(80, 50, "button", "red");
+        bootstrapbutton1.showButton();
+        //2
+        class Figure{
+            constructor(name, side){
+                this.name = name,
+                this.side = side
+            }
+
+            getName(){
+                return this.name;
+            }
+
+            showInfo(){
+                console.log(`Figure name: ${this.name}`);
+            }
+
+            CountArea(){
+                return side[0] * side[1];
+            }
+
+            CountPerimeter(){
+                return 2 * (side[0] + side[1]);
+            }
+        }
+
+        class Square extends Figure{
+            constructor(side){
+                super("Square", [side, side])
+                this.side = side;
+            }
+            
+            CountArea(){
+                return this.side * this.side;
+            }
+
+            CountPerimeter(){
+                return 4 * this.side;
+            }
+        }
+
+        class Rectangle extends Figure{
+            constructor(width, height){
+                super("Rectangle", [width, height, width, height]);{
+                    this.width = width;
+                    this.height = height;
+                }
+            }
+
+            CountArea(){
+                return this.height * this.height;
+            }
+
+            CountPerimeter(){
+                return 2 * (this.width + this.height);   
+            }
+        }
+
+        class Triangle extends Figure{
+            constructor(a,b,c, height){
+                super("Triangle", [a, b, c]);
+                this.a = a;
+                this.b = b;
+                this.c = c;
+                this.height = height;
+            }
+
+            CountArea(){
+                return (this.a * this.height) / 2;
+            }
+
+            CountPerimeter(){
+                return this.a + this.b + this.c;
+            }
+        }
+
+        const figures = [
+            new Square(4),
+            new Rectangle(3, 4, 3, 4),
+            new Triangle(5, 7, 9, 4)
+        ]
+
+        for (let i = 0; i < figures.length; i++){
+            figures[i].showInfo();
+            console.log(`Area: ${(figures[i].CountArea())}`);
+            console.log(`Perimmeter: ${(figures[i].CountPerimeter())}`);
+        }
+
+        //3
+        class ExtendedArray extends Array{
+            getString(separator){
+                return this.join(separator);
+            }
+
+            getHtml(tagName){
+                let result = "";
+
+                for(let item of this){
+                    result += `<${tagName}>${item}</${tagName}>`;
+                }
+
+                if(tagName === "li"){
+                    result = `<ul>${result}</ul>`;
+                }
+
+                return result;
+            }
+        }
+
+        const fruits = new ExtendedArray("apple", "banna", "pineapple");
+        
+        console.log(fruits.getString(" - "));
+        console.log(fruits.getHtml("p"));
+        console.log(fruits.getHtml("li"));
+
+        document.write(fruits.getHtml("h2"))
+    </script>
+</body>
+</html>

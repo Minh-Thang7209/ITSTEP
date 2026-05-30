@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //1
+        class Circle {
+            constructor(radius) {
+                this.radius = radius;
+            }
+
+            get getRadius() {
+                return this.radius;
+            }
+
+            set setRadius(radius) {
+                this.radius = radius;
+            }
+
+            get getDiameter() {
+                return this.radius * 2;
+            }
+
+            CircleArea() {
+                return Math.floor(this.radius ** 2 * Math.PI);
+            }
+
+            CircleLength() {
+                return Math.floor(2 * Math.PI * this.radius);
+            }
+        }
+        const circle1 = new Circle();
+        circle1.setRadius = 10;
+        console.log(circle1.getRadius);
+        console.log(circle1.getDiameter);
+        console.log(circle1.CircleArea());
+        console.log(circle1.CircleLength());
+        //2
+        class HtmlElement {
+
+            constructor(tagName, isSelfClosing = false) {
+                this.tagName = tagName;
+                this.isSelfClosing = isSelfClosing;
+
+                this.textContent = "";
+                this.attributes = [];
+                this.styles = [];
+                this.children = [];
+            }
+
+            setAttribute(name, value) {
+                this.attributes.push({
+                    name: name,
+                    value: value
+                });
+            }
+
+            setStyle(name, value) {
+                this.styles.push({
+                    name: name,
+                    value: value
+                });
+            }
+
+            setChildrenEnd(element) {
+                this.children.push(element);
+            }
+
+            setChildrenBegin(element) {
+                this.children.unshift(element);
+            }
+
+            getHtml() {
+
+                let attrs = "";
+
+                for (const attr of this.attributes) {
+                    attrs += ` ${attr.name}="${attr.value}"`;
+                }
+
+                if (this.styles.length > 0) {
+
+                    let stylesString = "";
+
+                    for (const style of this.styles) {
+                        stylesString += `${style.name}: ${style.value}; `;
+                    }
+
+                    attrs += ` style="${stylesString}"`;
+                }
+
+                if (this.isSelfClosing) {
+                    return `<${this.tagName}${attrs}>`;
+                }
+
+                let html = `<${this.tagName}${attrs}>`;
+
+                html += this.textContent;
+
+                for (const child of this.children) {
+                    html += child.getHtml();
+                }
+
+                html += `</${this.tagName}>`;
+
+                return html;
+            }
+        }
+
+
+        const div = new HtmlElement("div");
+
+        div.setAttribute("id", "wrapper");
+        div.setStyle("display", "flex");
+
+        const nestedDiv = new HtmlElement("div");
+
+        nestedDiv.setStyle("width", "300px");
+        nestedDiv.setStyle("margin", "10px");
+
+        div.setChildrenEnd(nestedDiv);
+
+        const h3 = new HtmlElement("h3");
+
+        h3.textContent = "What is Lorem Ipsum?";
+
+        nestedDiv.setChildrenEnd(h3);
+
+        const img = new HtmlElement("img", true);
+
+        img.setAttribute("src", "lipsum.jpg");
+        img.setAttribute("alt", "Lorem Ipsum");
+
+        img.setStyle("width", "100%");
+
+        nestedDiv.setChildrenEnd(img);
+
+        const p = new HtmlElement("p");
+
+        p.setStyle("text-align", "justify");
+
+        p.textContent =
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ";
+
+        nestedDiv.setChildrenEnd(p);
+
+        const a = new HtmlElement("a");
+
+        a.setAttribute("href", "https://www.lipsum.com/");
+        a.setAttribute("target", "_blank");
+
+        a.textContent = "More...";
+
+        p.setChildrenEnd(a);
+
+        const nestedDiv2 = new HtmlElement("div");
+
+        nestedDiv2.setStyle("width", "300px");
+        nestedDiv2.setStyle("margin", "10px");
+
+        div.setChildrenBegin(nestedDiv2);
+
+        const h3_2 = new HtmlElement("h3");
+
+        h3_2.textContent = "What is Lorem Ipsum?";
+
+        nestedDiv2.setChildrenEnd(h3_2);
+
+        const img_2 = new HtmlElement("img", true);
+
+        img_2.setAttribute("src", "lipsum.jpg");
+        img_2.setAttribute("alt", "Lorem Ipsum");
+
+        img_2.setStyle("width", "100%");
+
+        nestedDiv2.setChildrenEnd(img_2);
+
+        const p_2 = new HtmlElement("p");
+
+        p_2.setStyle("text-align", "justify");
+
+        p_2.textContent =
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ";
+
+        nestedDiv2.setChildrenEnd(p_2);
+
+        const a_2 = new HtmlElement("a");
+
+        a_2.setAttribute("href", "https://www.lipsum.com/");
+        a_2.setAttribute("target", "_blank");
+
+        a_2.textContent = "More...";
+
+        p_2.setChildrenEnd(a_2);
+
+        document.write("<h2>HTML ELEMENT</h2>");
+
+        document.write(div.getHtml());
+
+        //3
+        class CssClass {
+            constructor(name) {
+                this.name = name;
+                this.styles = [];
+            }
+
+            setStyle(name, value) {
+                this.styles.push({
+                    name: name,
+                    value: value
+                });
+            }
+
+            removeStyle(name) {
+                this.styles = this.styles.filter(style => style.name !== name);
+            }
+
+            getCss() {
+                let css = "";
+
+                for (const style of this.styles) {
+                    css += `${style.name}: ${style.value}; `;
+                }
+
+                return css.trim();
+            }
+        }
+        const cssClass1 = new CssClass("box");
+
+        cssClass1.setStyle("color", "red");
+        cssClass1.setStyle("margin", "10px");
+        cssClass1.setStyle("display", "flex");
+
+        console.log(cssClass1.getCss());
+    </script>
+</body>
+
+</html>

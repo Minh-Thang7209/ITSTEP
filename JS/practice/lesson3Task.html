@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const rectangle = {
+           x1: 0,
+           y1: 0,
+           x2: 0,
+           y2: 0
+        };
+
+        function Rectangle(x1, y1, x2, y2){
+            this.x1 = x1,
+            this.y1 = y1,
+            this.x2 = x2,
+            this.y2 = y2
+        };
+
+        const rectangle2 = new Rectangle(-10, 10, 10, 4);
+        //1
+        // function ShowInfo(rectangle){
+        //     console.log(`Ліва верхя точка має координати: X1:${rectangle.x1} Y1:${rectangle.y1}`);
+        //     console.log(`Права нижня точка має координати: X2:${rectangle.x2} Y2:${rectangle.y2}`);
+        // }
+        // ShowInfo(rectangle2);
+        // 2
+        // function ShowWidth(rectangle){
+        //     console.log(`Ширина: ${Math.abs(rectangle.x1-rectangle.x2)} од.`);
+        // }
+        // ShowWidth(rectangle2);
+        // 3
+        // function ShowHeigth(rectangle){
+        //     console.log(`Висота: ${Math.abs(rectangle.y1-rectangle.y2)} од.`);
+        // }
+        // ShowHeigth(rectangle2);
+        //4
+        // function AreaRectangle(rectangle){
+        //     let width = Math.abs(rectangle.x1-rectangle.x2);
+        //     let height = Math.abs(rectangle.y1-rectangle.y2);
+        //     return width * height;
+        // };
+        // console.log(AreaRectangle(rectangle2));
+        //5
+        // function PRectangle(rectangle){
+        //     let width = Math.abs(rectangle.x1-rectangle.x2);
+        //     let height = Math.abs(rectangle.y1-rectangle.y2);
+        //     return 2*(width + height);
+        // };
+        // console.log(PRectangle(rectangle2));
+        //6
+        // function ChangeWidthRectangle(rectangle, number){
+        //     rectangle.x2 += number;
+        // }
+        // ChangeWidthRectangle(rectangle2, 4);
+        // console.log(rectangle2.x2);
+        //7 
+        // function ChangeHeightRectangle(rectangle, number){
+        //     rectangle.y2 += number;
+        // }
+        // ChangeHeightRectangle(rectangle2, 4);
+        // console.log(rectangle2.y2);
+        //8
+        // function ChangeWidthHeightRectangle(rectangle, width, height){
+        //     rectangle.x2 += width;
+        //     rectangle.y2 += height;
+        // }
+        // ChangeWidthHeightRectangle(rectangle2, 4, 4);
+        // console.log(rectangle2.x2);
+        // console.log(rectangle2.y2);
+        //9
+        // function MoveByX(rectangle, number){
+        //     rectangle.x1 += number;
+        //     rectangle.x2 += number;
+        // }
+        // MoveByX(rectangle2, 4);
+        // console.log(rectangle2.x1);
+        // console.log(rectangle2.x2);
+        //10
+        // function MoveByY(rectangle, number){
+        //     rectangle.y1 += number;
+        //     rectangle.y2 += number;
+        // }
+        // MoveByY(rectangle2, 4);
+        // console.log(rectangle2.y1);
+        // console.log(rectangle2.y2);
+        //11
+        // function MoveByXY(rectangle, numberX, numberY){
+        //     rectangle.x1 += numberX;
+        //     rectangle.x2 += numberX;
+        //     rectangle.y1 += numberY;
+        //     rectangle.y2 += numberY;
+        // }
+        // MoveByXY(rectangle2, 4, 4);
+        // console.log(rectangle2.x1);
+        // console.log(rectangle2.x2);
+        // console.log(rectangle2.y1);
+        // console.log(rectangle2.y2);
+        //12
+        function isPointInside(rectangle, x, y){
+           return(
+            x >= rectangle.x1 && x <= rectangle.x2 &&
+            y <= rectangle.y1 && y >= rectangle.y2
+           );
+        }
+        console.log(isPointInside(rectangle2, 0, 7));
+    </script>
+</body>
+</html>
