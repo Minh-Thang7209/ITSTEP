@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const user = {
+            name: 'Антон',
+            age: 28,
+            isDeveloper: true,
+            skills: ['JS', 'React']
+        }
+        console.log(typeof user)
+        console.log(user.name)
+        console.log(user['age'])
+        console.log(user.salary)
+        user.salary = 45000;
+        console.log(user.salary);
+        delete user.isDeveloper;
+
+        const car = {
+            brand: "Toyota",
+            model: "Camry",
+            startEngine: function(){
+                console.log("Двигун запущено! Вррум!");
+            }
+        }
+        car.startEngine(); 
+        console.log(Object.keys(user));
+        console.log(Object.values(car));
+        console.log(Object.entries(user));
+
+        function User(name, age, isDeveloper, skills){ // Функція-конструктор
+            this.name = name,
+            this.age = age,
+            this.isDeveloper = isDeveloper,
+            this.skills = skills;
+        }
+
+        const user2 = new User('Anastasya', 32, true, ['.NET and C#', 'Java', 'C++'])
+
+        user2.city = "Odesa";
+
+        const today = new Date();
+        console.log(today);
+
+        const day = new Date("2024-05-10T12:30:00");
+        console.log(day);
+
+        const day2 = new Date(342432532432430);
+        console.log(day2);
+
+        const fromComponents = new Date(2234, 2, 12, 14, 25, 10, 0);
+        console.log(fromComponents);
+
+        console.log(day.getFullYear());
+        console.log(day.getMonth());
+        console.log(day.getDay());
+        console.log(day.getHours());
+        console.log(day.getMinutes());
+        console.log(day.getSeconds());
+        console.log(day.getMilliseconds());
+        
+        const formatter = new Intl.DateTimeFormat("uk-UA",{
+            weekday: "short",
+            year: "2-digit",
+            month: "short",
+            day: "2-digit"
+        })
+
+        console.log(formatter.format(day2));
+
+        console.log(Math.PI);
+        console.log(Math.E);
+
+        console.log(Math.round(12.5));
+        console.log(Math.floor(-12.9)); // до найменшого цілого 
+        console.log(Math.ceil(12.5));
+        console.log(Math.trunc(12.5)) // відкидає дробу частину
+
+        console.log(Math.random());
+        console.log(Math.floor(Math.random() * 6)) + 1;
+
+        const rand = {
+            generate: function(min, max){
+                return (Math.floor(Math.random() * max)) + min;
+            },
+            generateFloat: function (min, max){
+                return (Math.random() * max) + min;
+            }
+        }
+
+        console.log(rand.generate(1,6));
+        console.log(rand.generateFloat(1,6));
+
+        console.log(Math.min(10, -5, 7, 8, 10, -98));
+        console.log(Math.max(10, -5, 7, 8, 10, -98));
+        const arr = [10, 43, 5335, 535, 2];
+        console.log(Math.min(...arr));
+        console.log(Math.max(...arr));
+
+        console.log(Math.sqrt(49));
+        console.log(Math.pow(10, 4));
+        console.log(Math.abs(-3));
+        
+        const fruists = ['apple', 'lemon', 'orange'];
+        console.log(typeof fruists);
+        console.log(fruists [0]);
+        console.log(fruists);
+        console.log(fruists.length);
+
+        fruists.push('маракуйа'); // в кінець масиву
+        fruists.pop(); // видаляє останній елемент
+        console.log(fruists);
+
+        let numbers = [10, 234, 4324, 32423, 32423];
+        const doubled = numbers.map(num => num * 2);
+        console.log(numbers);
+        console.log(doubled);
+
+        // fruists[10000] = 'маркауйа';
+        // console.log(fruists[10000]);
+        // console.log(fruists);
+
+
+
+    </script>
+</body>
+</html>

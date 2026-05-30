@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="#">
+        <div>
+            <label for="email-input">E-mail:</label>
+            <input type="text" name="email" id="email-input">
+            <p id="feedback" hidden></p>
+        </div>
+    </form>
+    <button type="submit">submit</button>
+    <script>
+        document.cookie = "session_id=12345; path/";
+        document.cookie = "user_pref=dark_mode; path=/; max-age=2592000";
+        localStorage.setItem("username", "Petro");
+        localStorage.setItem("theme", "dark");
+        const theme = localStorage.getItem("theme");
+        console.log(theme);
+        
+        // const pattern = /abc/;
+        // const regExp = new RegExp('abs');
+
+        // const fileData = "Level_01_Confing_v2.json; size: 1024kb; date: 2026-05-21";
+        // console.log(/v\d/.test(fileData));
+        // console.log(/\d+kb/.exec(fileData));
+        // // const mulitiline = "^Hello$\n^world$";
+        // // i - case insensitive 
+        // // m - mulitiline 
+        // // u - unicode
+        // console.log(fileData.match(/\d+/g)); // g - global (пошук по всьому рядку)
+
+        const input = document.getElementById('email-input');
+        const feedback = document.getElementById('feedback');
+        input.addEventListener('input', (e) => {
+            const value = e.target.value;
+
+            feedback.hidden = false;
+
+            if (value === "") {
+                feedback.hidden = true;
+                feedback.textContent = "";
+                return;
+            }
+
+            if (/^[\w.-]+@[\w. -]+\.[a-zA-Z]{2,}/.test(value)){
+                feedback.textContent = "Email is correct";
+                feedback.style.color = "green";
+            } else {
+                feedback.textContent = "Enter correct email please";
+                feedback.style.color = "red";
+            }
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .rectangle {
+            width: 200px;
+            height: 200px;
+            background-color: blanchedalmond;
+            display: flex;
+            border: solid black;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <button onclick="changeColor()">Press me!</button> -->
+    <button id="btn-toggle-theme">Toggle Theme</button>
+    <div class="rectangle" tabindex="0"></div>
+    <input type="text">
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+    </ul>
+    <form action="/save" method="post">
+        <label for="email-input">Email: </label>
+        <input type="text" id="email-input">
+        <button type="submit">Send</button>
+    </form>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.querySelector('form');
+            form.addEventListener('click', (event) =>{
+                event.preventDefault();
+                const emailInput = document.querySelector('#email-input');
+                console.log(emailInput.value);
+            })
+            // const list = document.querySelector('ul');
+            // list.addEventListener('click', (event) => {
+            //     if(event.target !== list){
+            //         event.target.remove();
+            //     }
+            // })
+            // const input = document.querySelector('input');
+           
+            // input.addEventListener("input", (event) =>{
+            //     console.log(input.value);
+            // })
+            // input.addEventListener("change", (event) =>{
+            //     console.log('change');
+            // })
+
+            // const btnToggleTheme = document.querySelector('#btn-toggle-theme');
+            // btnToggleTheme.addEventListener("click", changeColor);
+            // function changeColor(event) {
+            //     event.stopPropagation();
+            //     console.log('change color');
+            //     const body = document.body;
+            //     console.log(`${body.style.backgroundColor}`)
+            //     body.style.backgroundColor =
+            //         body.style.backgroundColor === "black" ? "white" : "black";
+            // }
+
+            // document.addEventListener('click', changeColor);            
+            // const rect = document.querySelector(".rectangle");
+            // rect.addEventListener("mousemove", (event) => {
+            //     event.target.textContent = `${event.clientX}; ${event.clientY}`;
+            // });
+            // rect.addEventListener("keydown", (event) => {
+            //     const newLetter = document.createElement('span');
+            //     newLetter.textContent = event.key;
+            //     event.target.append(newLetter);
+            //     console.log(`${event.key}`);
+            // })
+
+
+
+
+            // function createMultiplier(multiplier){
+            //     return function(number){
+            //         return number * multiplier;
+            //     }
+            // }
+            // const doubler = createMultiplier(2);
+            // console.log(doubler(5));
+        });
+    </script>
+</body>
+
+</html>

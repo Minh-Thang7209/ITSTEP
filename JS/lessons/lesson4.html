@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // console.log(varialbe);
+        // var varialbe = 10;
+        // // console.log(varialbe2);
+        // const varialbe2 = 12;
+        // let arr = ['apple', 'orange', 'lemon'];
+        // console.log(arr);
+
+        // let object = {
+        //     name: 'Anton',
+        //     age: 16,
+        //     sex: 'male'
+        // }
+        // object.city = 'London';
+
+        // const animal ={
+        //     eats: true,
+        //     walk () {
+        //         console.log("animal is going");
+        //     }
+        // }
+
+        // const rabbit = {
+        //     jumps: true
+        // }
+
+        // rabbit.__proto__ = animal;
+        // console.log(rabbit.jumps);
+        // console.log(rabbit.eats);
+        // rabbit.walk();
+        // console.log(rabbit);
+
+        // class Animal {
+        //     constructor(name){
+        //         this.name = name;
+        //     }
+        //     speak(){
+        //         console.log(`${this.name} give sound`);
+        //     }
+        // }
+
+        // const myPet = new Animal("Barsik");
+        // myPet.speak();
+
+        // class BankAccount {
+        //     #balance // private property
+        //     constructor(intialBalance){
+        //         this.#balance = intialBalance;
+        //     }
+        //     deposit(amount){
+        //         this.#balance += amount;
+        //         console.log(`Add money ${amount}. Current balance: ${this.#balance}`);
+        //     }
+        //     getBalance(){
+        //         return this.#balance;
+        //     }
+        // }
+        // const account = new BankAccount(100000);
+        // account.deposit(5000);
+        // console.log(account.getBalance());
+        // // console.log(account.#balance);
+
+        // function Dog(name){
+        //     this.name = name;
+        // }
+        // Dog.prototype.bark = function(){
+        //     console.log(`${this.name} bark!`);
+        // }
+
+        // const myDog = new Dog('Rex');
+        // myDog.bark();
+        // const carMethod = {
+        //     startEngine(){
+        //         console.log(`Engine ${this.brand} is turn on!`);
+        //     }
+        // };
+        // const myCar = Object.create(carMethod);
+        // myCar.brand = 'Toyota';
+        // myCar.startEngine();
+        // class Calculator{
+        //     static add(a,b){
+        //         return a + b;
+        //     }
+        // }
+
+        // console.log(Calculator.add(10, 12));
+        // const myCalc = new Calculator();
+
+        // class Article {
+        //     constructor(title, date) {
+        //         this.title = title;
+        //         this.date = date;
+        //     }
+
+        //     read() {
+        //         document.write(`
+        //     <h1>${this.title}</h1>
+        //     <span>${this.date.toDateString()}</span><br>
+        // `);
+        //     }
+
+        //     static compareByDate(article1, article2) {
+        //         return article1.date - article2.date;
+        //     }
+        // }
+
+        // const articles = [
+        //     new Article('What is OOP', new Date(2023, 1, 1)),
+        //     new Article('JS for beginners', new Date(2023, 0, 15))
+        // ];
+
+        // articles.sort(Article.compareByDate);
+
+        // console.log(articles);
+
+        // for (let article of articles) {
+        //     article.read();
+        // }
+
+        // class User {
+        //     constructor(name, role) {
+        //         this.name = name;
+        //         this.role = role;
+        //     }
+
+        //     static createAdmin(name) {
+        //         return new this(name, 'admin');
+        //     }
+
+        //     static createGuest() {
+        //         return new this('Anonymous', 'guest');
+        //     }
+        // }
+
+        // // create objects
+        // const admin = User.createAdmin('John');
+        // const guest = User.createGuest();
+
+        // console.log(admin.role); // admin
+        // console.log(guest.name); // Anonymous
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Lorem</p>
+    <p class="p-class">Lorem</p>
+    <p id="p-id">Lorem</p>
+    <ul id="ul-id">
+        <li>item 1;</li>
+    </ul>
+
+    <button onclick="addChild()">Add child</button>
+    <script>
+        let counter = 0;
+        function addChild(){
+            const newItem = document.createElement('div');
+            newItem.textContent = `NewItem ${counter++}`;
+            const list = document.querySelector('#ul-id');
+            newItem.onclick = newItem.remove;
+            list.prepend(newItem);
+            list.append(newItem);
+            
+            // list.before(newItem);
+            // list.after(newItem);
+        }
+
+        const p_class = document.querySelector('.p-class');
+        console.log(p_class);
+        const p_id = document.querySelector("#p-id");
+        console.log(p_id);
+
+       
+        const paragraphs = document.querySelectorAll('p');
+        console.log(paragraphs);
+
+        const p_id2 = document.getElementById('p-id');
+        console.log(p_id2);
+        p_id2.style.padding = '0.5 em';
+
+        const paragraphsLive = document.getElementsByTagName('p');
+        console.log(paragraphsLive);
+
+        console.log(document.title);
+        document.title = 'New title for page';
+        console.log(document.URL);
+        console.log(typeof document.body);
+
+        const newParagraph = document.createElement('p');
+        newParagraph.textContent = 'new text element';
+        document.body.append(newParagraph);
+
+        console.log(paragraphs);
+        console.log(paragraphsLive);
+
+
+
+    </script>
+</body>
+</html>

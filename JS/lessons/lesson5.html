@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+            class Animal {
+                _name; //Protected field 
+                constructor(name){
+                    this._name = name;
+                }
+
+                speak(){
+                    console.log(`${this._name} give sound`);
+                }
+            }
+            const myPet = new Animal('Bobik');
+            myPet.speak();
+
+            class Dog extends Animal {
+                #breed;
+                constructor(name, breed){
+                    super(name); // Не буде мати доступу до базового класу
+                    this.#breed = breed;
+                }
+                bark(){
+                    console.log(`${this._name} breed ${this.#breed}`);
+                }
+            }
+
+            class Cat extends Animal{
+                constructor(name){
+                    super(name);
+                }
+            }
+
+            class Cow extends Animal{
+                constructor(name){
+                    super(_name)
+                }
+                speak(){
+                    document.write(`<p>${this.name} say MYYY</p>`);
+                }
+            }
+
+            const animals = [new Cow('Natasha', new Cat('Horon'))];
+
+            for(let animal of animals){
+                animal.speak();
+            }
+
+            const myDog = new Dog('Barsik', 'Malenua');
+            myDog.bark();
+            console.log(myDog instanceof Animal);
+            console.log(myDog instanceof Dog);
+            console.log(myDog instanceof Cat);
+            
+
+            class Employee{
+                constructor(name, salary){
+                    this.name = name;
+                    this.salary = salary
+                }
+            }
+
+            class Manger extends Employee{
+                constructor(name, salary, department){
+                    super(name, salary);
+                    this.department
+                }
+            }
+
+            const boss = new Manger('Olena', 6000, 'IT');
+            console.log(boss.name, boss.salary);
+
+            class Printer{
+                print(text) {
+                    document.write(`<p>Print: ${text}</p>`);
+                }
+            }
+
+            class SecurePrint extends Printer{
+                print(text){
+                    super.print(`[Zashifrovano] ${text}`);
+                    console.log(`Log: document is printed`);
+                }
+            }
+
+            const myPrinter = new SecurePrint();
+            myPrinter.print('Secret!');
+    </script>
+</body>
+</html>
