@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        textarea {
+            width: 400px;
+            height: 300px;
+            resize: none;
+        }
+
+        #result {
+            width: 400px;
+            white-space: pre;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 8px 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="block">
+            <h3>Enter JSON data: <span id="formatError"></span></h3>
+            <textarea id="jsonInput">
+
+            </textarea>
+        </div>
+
+        <div class="middle">
+            <button id="formatBtn">></button>
+        </div>
+        <div class="block">
+            <h3>Formatted JSON data:</h3>
+            <div id="result"></div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const formatBtn = document.getElementById("formatBtn");
+            const jsonInput = document.getElementById("jsonInput");
+            const result = document.getElementById("result");
+            const formatError = document.getElementById("formatError");
+            formatBtn.addEventListener("click", () => {
+                try {
+                    const json = JSON.parse(jsonInput.value);
+                    result.textContent = JSON.stringify(json, null, 4);
+                } catch (error) {
+                    formatError.textContent = ("[format error]");
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>
