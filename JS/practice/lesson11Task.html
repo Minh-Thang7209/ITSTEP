@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //1
+        function onSuccess(result) {
+            console.log(`Результат: ${result}`);
+        }
+
+        function onError(error) {
+            console.log(`Помилка: ${error}`);
+        }
+        function calculate(a, b, onSuccess, onError) {
+            if (b === 0) {
+                onError("Ділення на нуль заборонено!");
+            } else {
+                onSuccess(Math.floor(a / b));
+            }
+        }
+        calculate(10, 2, onSuccess, onError);
+        calculate(10, 0, onSuccess, onError);
+        //2
+        function logElement(element) {
+            console.log("Виводить: " + element.join(", "));
+        }
+
+        test = [1, 2, 4, 3];
+
+        function squareElement(element) {
+            for(let i = 0; i < element.length; i++){
+                arr[i] = arr[i] ** 2;
+            }
+        }
+        squareElement(test);
+ 
+        
+        function processArray(array, callback) {
+            callback(array);
+           
+        }
+        processArray([1, 2, 3, 4, 5], logElement);
+        processArray([1, 2, 3, 4, 5], )
+    </script>
+</body>
+
+</html>
