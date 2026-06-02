@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function greet(name) {
+            console.log("Hello, ", name);
+        }
+        function processUserInput(callback) {
+            const name = "Anton";
+            callback(name);
+        }
+        processUserInput(greet);
+
+        const myPromise = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                const rand = Math.random();
+                const isSuccess = rand >= 0.5 ? true : false;
+
+                if (isSuccess) {
+                    resolve(`Операція успішна! ${rand}`);
+                } else {
+                    reject(`Сталася помилка ${rand}`);
+                }
+            }, 2000);
+        })
+        myPromise
+            .then((result) => {
+                console.log(result);
+            })
+            .catch((result) => {
+                console.log(result);
+            })
+
+        new Promise((resolve) => {
+            resolve(2);
+        })
+            .then((num) => {
+                console.log(num);
+                return num * 2;
+            })
+            .then((num) => {
+                console.log(num);
+                return num * 2;
+            })
+            .then((num) => {
+                console.log(num);
+            })
+
+        new Promise((resolve, reject) => {
+            resolve("1 Крок пройдено");
+        })
+            .then((res) => {
+                console.log(res);
+                throw new Error("Щось пішло не так на кроці 2!");
+            })
+            .then(() => {
+                console.log("Цей код ніколи не виконається");
+            })
+            .catch((err) => {
+                console.log("Перехоплено:", err.message);
+            })
+
+        const fetchUserData = new Promise((resolve) =>
+            setTimeout(() => resolve({ name: "Іван" }), 1500));
+
+        const fetchUserFriends = new Promise(
+            (resolve) => setTimeout(() => resolve(['Олена', 'Сергій']), 3000)
+        )
+        Promise.all([fetchUserData, fetchUserFriends])
+            .then((results) => {
+                const [userData, friends] = results;
+                console.log("Promise.all виконано!");
+                console.log("Користувач: ", userData.name);
+                console.log("Друзі:", friends);
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+
+        const slowRequest = new Promise((resolve) => setTimeout(() => resolve("Дані з сервера отримано"), 5000));
+
+        const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error("Час очікування вийшов!")), 3000));
+
+        Promise.race([slowRequest, timeout])
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((error) => {
+                console.error("Promise.race результат:", error.message);
+            })
+
+        const uploadPhoto1 = new Promise((resolve) => setTimeout(() => resolve("Фото 1 успішно завантажено")), 1000);
+        const uploadPhoto2 = new Promise((_, reject) => setTimeout(() => reject("Помилка: файл пошкоджено")), 1500);
+        const uploadPhoto3 = new Promise((_, reject) => setTimeout(() => reject("Фото 3 успіщно завантажено")), 2000);
+
+        Promise.allSettled([uploadPhoto1, uploadPhoto2, uploadPhoto3])
+            .then((results) => {
+                console.log("Promise.allSetteld завершився. Звіт:");
+
+                results.forEach((result, index) => {
+                    if (result.status === "fulfilled") {
+                        console.log(`Проміс ${index + 1}: Успіх - ${result.value}`);
+                    } else {
+                        console.log(`Проміс ${index + 1}: Провал - ${result.reason}`);
+                    }
+                });
+            });
+
+        const server1 = new Promise((_, reject) => setTimeout(() => reject("Сервер 1 впав (500)")), 500);
+        const server2 = new Promise((_, reject) => settimeout(() => reject("Сервер 2 недоступний (404)"), 1000));
+        const server3 = new Promise((resolve) => setTimeout(() => resolve("Сервер 3 віддав дані!")), 500);
+
+        Promise.any([server1, server2, server3])
+            .then((firstSuccessfulData) => {
+                console.log("Promise.any результат: ", firstSuccessfulData);
+            })
+            .catch((aggregatorError) => {
+                console.error("Усі сервери лягли:", aggregatorError.errors);
+            });
+    </script>
+</body>
+
+</html>
