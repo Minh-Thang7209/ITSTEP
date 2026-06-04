@@ -1,17 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <script>
-        async function sayHello(){
+        async function sayHello() {
             return "Hello";
         }
 
         sayHello().then((result) => console.log(result));
+
+        async function processData() {
+            const myPromise = new Promise((resolve) => setTimeout(() => resolve("Дані отриано"), 2000));
+            console.log("Очікуємо дані...");
+
+            // myPromise.then((result) => console.log(result));
+            const result = await myPromise;
+
+            console.log(result);
+        }
+
+        processData();
+
+        function getUserData() {
+            return new Promise((resolve) => {
+                setTimeout(() => resolve({ id: 1, name: "Olena" }), 1000);
+            })
+        }
+
+        function getUserFriends(userId) {
+            return new Promise((resolve) => {
+                setTimeout(() => resolve(["Ivan", "Petro", "Antasia"]), 1000);
+            })
+        }
+
+        function fetchUser() {
+            getUserData().then((user) => {
+                return getUserFriends(user.id);
+            })
+            .then((friends) => {
+                console.log(friends);
+            })
+        }
+
+        async function fetchUserAsync() {
+            const user = await getUserData();
+            const friends = await getUserFriends(user.id);
+            console.log(friends);
+        }
     </script>
 </body>
+
 </html>
