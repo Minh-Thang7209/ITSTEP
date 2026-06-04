@@ -16,8 +16,10 @@
         sayHello().then((result) => console.log(result));
 
         async function processData() {
-            const myPromise = new Promise((resolve) => setTimeout(() => resolve("Дані отриано"), 2000));
-            console.log("Очікуємо дані...");
+            const myPromise = new Promise((resolve) => 
+            setTimeout(() => resolve("Дані отримано"), 2000));
+
+            console.log('Очікуємо дані...');
 
             // myPromise.then((result) => console.log(result));
             const result = await myPromise;
@@ -29,14 +31,14 @@
 
         function getUserData() {
             return new Promise((resolve) => {
-                setTimeout(() => resolve({ id: 1, name: "Olena" }), 1000);
-            })
+                setTimeout(() => resolve({id:1, name:'Олена'}), 1000);
+            });
         }
 
         function getUserFriends(userId) {
             return new Promise((resolve) => {
-                setTimeout(() => resolve(["Ivan", "Petro", "Antasia"]), 1000);
-            })
+                setTimeout(() => resolve(['Іван', 'Петро', 'Анастасія']), 1000);
+            });
         }
 
         function fetchUser() {
@@ -53,6 +55,20 @@
             const friends = await getUserFriends(user.id);
             console.log(friends);
         }
+
+        function getUserDetails(userId){
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if(userId === 1){
+                        resolve({id: 1, name: "Oleksander", role: "Admin"});
+                    } else{
+                        reject(new Error(`User with ID ${userId} do not found in database...`));
+                    }
+                }, 1200);
+            })
+        }
+
+        getUserDetails(1);
     </script>
 </body>
 
