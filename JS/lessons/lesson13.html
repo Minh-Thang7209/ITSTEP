@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://jsonplaceholder.typicode.com.users');
+        xhr.onload = function () {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                const data = JSON.parse(xhr.response);
+                console.log("Отриманні користувачі:", data);
+            } else {
+            console.error("Помилка запиту:", xhr.status);
+            }
+        }
+        xhr.send();
+    </script>
+</body>
+
+</html>
