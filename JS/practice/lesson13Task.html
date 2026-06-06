@@ -34,14 +34,14 @@
 <body>
     <h2>All users:</h2>
     <div class="grid-wrapper">
-        <span class="text-border">text</span>
-        <span class="text-border">text</span>
-        <span class="text-border">text</span>
-        <span class="text-border">text</span>
-        <span class="text-border">text</span>
-        <span class="text-border">text</span>
-        <span class="text-border">text</span>
-        <span class="text-border">text</span>
+        <span class="text-border"></span>
+        <span class="text-border"></span>
+        <span class="text-border"></span>
+        <span class="text-border"></span>
+        <span class="text-border"></span>
+        <span class="text-border"></span>
+        <span class="text-border"></span>
+        <span class="text-border"></span>
 
     </div>
     <script>
@@ -67,7 +67,8 @@
                 }
             }
             xhr.send();
-            const 
+            const span_class = document.getElementsByClassName("text-border");
+            span_class.textContent = userColletction;
         })
     </script>
 </body>
