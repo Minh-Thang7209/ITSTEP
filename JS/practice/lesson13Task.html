@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            display: flex;
+            justify-content: center;
+
+        }
+
+        .grid-wrapper {
+            display: grid;
+            grid-template-columns: repeat(3, 3fr);
+            gap: 20px;
+        }
+
+        .text-border {
+            border: 1px solid;
+            padding: 20px;
+            width: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>All users:</h2>
+    <div class="grid-wrapper">
+        <span class="text-border">text</span>
+        <span class="text-border">text</span>
+        <span class="text-border">text</span>
+        <span class="text-border">text</span>
+        <span class="text-border">text</span>
+        <span class="text-border">text</span>
+        <span class="text-border">text</span>
+        <span class="text-border">text</span>
+
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            class User {
+                constructor(id, name) {
+                    this.id = id;
+                    this.name = name;
+                }
+            }
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'https://jsonplaceholder.typicode.com/users');
+            xhr.onload = function () {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    const data = JSON.parse(xhr.response);
+                    const userColletction = data.map(ex => new User(ex.id, ex.name));
+                    for (let element of userColletction) {
+                        console.log(element);
+                    }
+
+                } else {
+                    console.error("Помилка запиту:", xhr.status);
+                }
+            }
+            xhr.send();
+        })
+    </script>
+</body>
+
+</html>
