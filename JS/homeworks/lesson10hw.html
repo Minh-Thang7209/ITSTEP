@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-button {
+            background: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .custom-button:hover {
+            background: #0056b3;
+        }
+
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 60%;
+        }
+
+        td,
+        th {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+
+        th {
+            background: #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Переглядач JSON-файлів</h2>
+    <label for="fileInput" class="custom-button">
+        Вибрати файл
+    </label>
+    <input type="file" name="" id="fileInput">
+    <div id="output"></div>
+    <script>
+        const input = document.getElementById("fileInput");
+
+        input.addEventListener("change", function () {
+            const file = this.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    renderTable(Array.isArray(data) ? data[0] : data);
+                } catch {
+                    alert("Невірний JSON файл");
+                }
+            };
+
+            reader.readAsText(file);
+        });
+
+        function renderTable(obj) {
+            const output = document.getElementById("output");
+            output.innerHTML = "";
+
+            const table = document.createElement("table");
+
+            table.innerHTML = `
+        <tr>
+            <th>Поле (Ключ)</th>
+            <th>Значення</th>
+        </tr>
+    `;
+
+            for (let key in obj) {
+                const value = obj[key];
+
+                const row = document.createElement("tr");
+
+                const tdKey = document.createElement("td");
+                tdKey.textContent = key;
+
+                const tdValue = document.createElement("td");
+
+                if (typeof value === "object" && value !== null) {
+                    tdValue.innerHTML = `<pre>${JSON.stringify(value, null, 2)}</pre>`;
+                } else {
+                    tdValue.textContent = value;
+                }
+
+                row.appendChild(tdKey);
+                row.appendChild(tdValue);
+                table.appendChild(row);
+            }
+
+            output.appendChild(table);
+        }
+    </script>
+</body>
+
+</html>
