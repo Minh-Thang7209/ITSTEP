@@ -27,26 +27,31 @@
         calculate(10, 2, onSuccess, onError);
         calculate(10, 0, onSuccess, onError);
         //2
-        function logElement(element) {
-            console.log("Виводить: " + element.join(", "));
-        }
-
-        test = [1, 2, 4, 3];
+        // function logElement(element) {
+        //     console.log("Виводить: " + element.join(", "));
+        // }
 
         function squareElement(element) {
-            for(let i = 0; i < element.length; i++){
-                arr[i] = arr[i] ** 2;
-            }
+            return element * element;
         }
-        squareElement(test);
- 
-        
+
+
+
         function processArray(array, callback) {
-            callback(array);
-           
+            for (let i = 0; i < array.length; i++) {
+                callback(array[i]);
+            }
+            
+            let result = "";
+
+            for (let i = 0; i < array.length; i++) {
+                result += callback(array[i]) + " ";
+            }
+
+            console.log(`Результат: [${result}]`);
         }
-        processArray([1, 2, 3, 4, 5], logElement);
-        processArray([1, 2, 3, 4, 5], )
+        // processArray([1, 2, 3, 4, 5], logElement);
+        processArray([1, 2, 3, 4, 5], squareElement);
     </script>
 </body>
 
