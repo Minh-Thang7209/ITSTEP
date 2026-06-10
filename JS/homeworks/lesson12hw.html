@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //1
+        function multiplyAsync(a, b) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    if (typeof a === "number" && typeof b === "number") {
+                        resolve(a * b);
+                    }
+                    else {
+                        resolve("Некоректні значення");
+                    }
+                }, 2000);
+            })
+        };
+
+        async function main() {
+            const number1 = 6;
+            const number2 = 9;
+            try {
+                const result = await multiplyAsync(number1, number2);
+                console.log(result);
+            }
+            catch (error) {
+                console.error(error);
+            }
+        }
+
+        main();
+
+        //2
+        function sortArrayAsync(array) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if (array.length !== 0) {
+                        resolve(array.sort((a, b) => a - b));
+                    } else {
+                        reject("Масив порожній");
+                    }
+                }, 2000);
+            })
+        }
+        async function main(){
+            const array = [5, 4, 3, 2, 1];
+            try{
+                const result = await sortArrayAsync(array);
+                for (element of result){
+                    console.log(element);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        main();
+    </script>
+</body>
+
+</html>
