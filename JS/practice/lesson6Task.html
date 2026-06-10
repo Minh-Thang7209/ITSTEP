@@ -5,6 +5,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .block {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            display: inline-block;
+        }
+
+        #text {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .palette {
+            display: flex;
+            gap: 10px;
+        }
+
+        .color-box {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            border: 2px solid #000;
+        }
+
+        .article {
+            padding: 15px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        .comments {
+            margin-bottom: 20px;
+        }
+
+        .comment {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .comment small {
+            color: gray;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input,
+        textarea {
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        input {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        #suggestions {
+            width: 300px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+
+        .item {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+            background: #fff;
+        }
+
+        .item:hover {
+            background: #f0f0f0;
+        }
+    </style>
 </head>
 
 <body>
@@ -12,6 +91,39 @@
     <button id="decrease">Менше</button>
     <input type="text" id="number" value="0" readonly>
     <button id="increase">Більше</button>
+    <!-- 2 -->
+    <div id="container"></div>
+    <button id="addBtn">Add block</button>
+    <!-- 3 -->
+    <div id="textColor">Цей текст змінює колір</div>
+    <div class="palette">
+        <div class="color-box" data-color="red" style="background:red;"></div>
+        <div class="color-box" data-color="blue" style="background:blue;"></div>
+        <div class="color-box" data-color="green" style="background:green;"></div>
+        <div class="color-box" data-color="purple" style="background:purple;"></div>
+        <div class="color-box" data-color="orange" style="background:orange;"></div>
+    </div>
+    <!-- 4 -->
+    <div class="article">
+        <h2>Моя стаття</h2>
+        <p>
+            Це приклад статті. Нижче ви можете залишати свої коментарі.
+        </p>
+    </div>
+
+    <div class="comments" id="comments">
+        <h3>Коментарі</h3>
+    </div>
+
+    <form id="commentForm">
+        <input type="text" id="name" placeholder="Ваше ім'я" required>
+        <textarea id="text" placeholder="Ваш коментар" required></textarea>
+        <button type="submit">Додати коментар</button>
+    </form>
+    <!-- 5 -->
+    <input type="text" id="countryInput" placeholder="Наприклад: Ukr...">
+    <div id="suggestions"></div>
+
     <script>
         // 1
         document.addEventListener("DOMContentLoaded", () => {
@@ -22,7 +134,100 @@
             document.getElementById("increase").addEventListener("click", () => {
                 input.value = Number(input.value) + 1;
             })
-        })
+        });
+        //2
+        const button = document.getElementById("addBtn");
+        const container = document.getElementById("container");
+        function getRandomColor() {
+            return "#" + Math.floor(Math.random() * 16777215).toString(16);
+        }
+        button.addEventListener("click", () => {
+            const block = document.createElement("div");
+            block.classList.add("block");
+            block.style.backgroundColor = getRandomColor();
+
+            block.addEventListener("click", () => {
+                block.remove();
+            });
+
+            container.appendChild(block);
+        });
+        //3
+        const text = document.getElementById("textColor");
+        const colors = document.querySelectorAll(".color-box");
+
+        colors.forEach(box => {
+            box.addEventListener("click", () => {
+                const color = box.dataset.color;
+                text.style.color = color;
+            });
+        });
+        //4
+        const form = document.getElementById("commentForm");
+        const comments = document.getElementById("comments");
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const text = document.getElementById("text").value;
+
+            const date = new Date().toLocaleString();
+
+            const comment = document.createElement("div");
+            comment.classList.add("comment");
+
+            comment.innerHTML = `
+        <strong>${name}</strong> <br>
+        <small>${date}</small>
+        <p>${text}</p>
+      `;
+
+            comments.appendChild(comment);
+
+            form.reset();
+        });
+        //5
+        const countries = [
+            "Ukraine", "United Kingdom", "United States", "Germany",
+            "France", "Italy", "Spain", "Poland", "Portugal",
+            "Canada", "China", "Japan", "South Korea", "Brazil",
+            "Argentina", "Mexico", "Turkey", "Sweden", "Norway",
+            "Finland", "Denmark", "Netherlands"
+        ];
+
+        const input = document.getElementById("countryInput");
+        const suggestions = document.getElementById("suggestions");
+
+        input.addEventListener("input", () => {
+            const value = input.value.toLowerCase();
+            suggestions.innerHTML = "";
+
+            if (value === "") return;
+
+            const filtered = countries
+                .filter(country => country.toLowerCase().includes(value))
+                .slice(0, 10);
+
+            filtered.forEach(country => {
+                const div = document.createElement("div");
+                div.classList.add("item");
+                div.textContent = country;
+
+                div.addEventListener("click", () => {
+                    input.value = country;
+                    suggestions.innerHTML = "";
+                });
+
+                suggestions.appendChild(div);
+            });
+        });
+
+        document.addEventListener("click", (e) => {
+            if (e.target !== input) {
+                suggestions.innerHTML = "";
+            }
+        });
     </script>
 </body>
 
