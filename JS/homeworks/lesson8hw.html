@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #messageList {
+            list-style: none;
+            padding: 0;
+        }
+
+        #messageList li {
+            background-color: #f4f4f4;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        form {
+            margin-top: 30px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .author {
+            font-weight: bold;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="messageList">
+        <li>
+            <span class="author">Олена:</span>
+            Вітаю всіх на форумі!
+        </li>
+        <li>
+            <span class="author">Іван:</span>
+            Бажаю гарного дня!
+        </li>
+    </ul>
+
+    <form id="messageForm">
+        <label for="author">Ім'я</label>
+        <input type="text" id="author" required>
+        <label for="message">Повідомлення:</label>
+        <textarea id="message" rows="4" required></textarea>
+        <button type="submit">Додати повідомлення</button>
+    </form>
+
+    <form id="quizFom">
+        <div class="question">
+            <p>1) How many letters are there in the word "Hello"?</p>
+            <label>
+                <input type="radio" name="q1" value="correct">
+                5
+            </label>
+            <label>
+                <input type="radio" name="q1" value="wrong">
+                2
+            </label>
+        </div>
+
+        <div class="question">
+            <p>2) How many letters are there in the word "World"</p>
+            <label>
+                <input type="radio" name="q2" value="wrong">
+                4
+            </label>
+            <label>
+                <input type="radio" name="q2" value="correct">
+                5
+            </label>
+        </div>
+        <button type="button" onclick="checkAnswer()">Finish</button>
+    </form>
+    <div id="result"></div>
+
+    <label>
+        <input type="checkbox" id="bold">
+        Bold
+    </label>
+    <label>
+        <input type="checkbox" id="Underline">
+        Underline
+    </label>
+    <label>
+        <input type="checkbox" id="Italics">
+        Italics
+    </label>
+
+    <input type="radio" name="align" value="Left" checked> Left
+    <input type="radio" name="align" value="Right"> Right
+    <input type="radio" name="align" value="Justify"> Justify
+    <textarea id="text" rows="4" cols="40"></textarea>
+    
+    <button onclick="showText()">Show text</button>
+
+    <p id="result"></p>
+    <script>
+        const form = document.getElementById("messageForm");
+        const messageList = document.getElementById("messageList");
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const author = document.getElementById("author").value;
+            const message = document.getElementById("message").value;
+
+            if (author && message) {
+                const li = document.createElement("li");
+
+                li.innerHTML = `
+                    <span class="author">${author}:</span>
+                    ${message}
+                `;
+                messageList.appendChild(li);
+                form.reset();
+            }
+        });
+
+        function checkAnswer() {
+            let score = 0;
+            const q1 = document.querySelector('input[name="q1"]:checked');
+            const q2 = document.querySelector('input[name="q2"]:checked');
+            if (q1 && q1.value === "correct") {
+                score++;
+            }
+            if (q2 && q2.value === "correct") {
+                score++;
+            }
+            document.getElementById("result").textContent =
+                "Result: " + score + `correct answers to 2 questions`;
+        }
+
+    </script>
+</body>
+
+</html>
