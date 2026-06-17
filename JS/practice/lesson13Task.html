@@ -7,69 +7,277 @@
     <title>Document</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
+            font-family: Arial, sans-serif;
+            padding: 20px;
         }
 
         h2 {
-            display: flex;
-            justify-content: center;
-
+            text-align: center;
         }
 
         .grid-wrapper {
             display: grid;
-            grid-template-columns: repeat(3, 3fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
         }
 
-        .text-border {
-            border: 1px solid;
-            padding: 20px;
-            width: 100px;
+        .user-card {
+            border: 1px solid #aaa;
+            padding: 15px;
+            cursor: pointer;
+        }
+
+        .user-card:hover {
+            background: #eee;
+        }
+
+        #details {
+            margin-top: 30px;
+            border-top: 1px solid black;
+            padding-top: 20px;
+        }
+
+        button {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .post {
+            border: 1px solid #ccc;
+            margin: 10px 0;
+            padding: 10px;
         }
     </style>
 </head>
 
 <body>
-    <h2>All users:</h2>
-    <div class="grid-wrapper">
-        <span class="text-border"></span>
-        <span class="text-border"></span>
-        <span class="text-border"></span>
-        <span class="text-border"></span>
-        <span class="text-border"></span>
-        <span class="text-border"></span>
-        <span class="text-border"></span>
-        <span class="text-border"></span>
+    <h2>All copywriters:</h2>
 
-    </div>
+    <div class="grid-wrapper" id="users"></div>
+
+
+    <div id="details"></div>
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+
+
             class User {
-                constructor(id, name) {
+
+                constructor(id, name, email, phone, website) {
                     this.id = id;
                     this.name = name;
+                    this.email = email;
+                    this.phone = phone;
+                    this.website = website;
                 }
+
             }
+
+
+            let usersCollection = [];
+
+
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', 'https://jsonplaceholder.typicode.com/users');
+
+            xhr.open(
+                "GET",
+                "https://jsonplaceholder.typicode.com/users"
+            );
+
+
             xhr.onload = function () {
+
                 if (xhr.status >= 200 && xhr.status < 300) {
+
+
                     const data = JSON.parse(xhr.response);
-                    const userColletction = data.map(ex => new User(ex.id, ex.name));
-                    for (let element of userColletction) {
-                        console.log(element);
-                    }
+
+
+                    usersCollection = data.map(user =>
+                        new User(
+                            user.id,
+                            user.name,
+                            user.email,
+                            user.phone,
+                            user.website
+                        )
+                    );
+
+
+                    renderUsers();
+
 
                 } else {
-                    console.error("Помилка запиту:", xhr.status);
+
+                    console.log("Error:", xhr.status);
+
                 }
-            }
+
+            };
+
+
             xhr.send();
-            const span_class = document.getElementsByClassName("text-border");
-            span_class.textContent = userColletction;
-        })
+
+
+
+            function renderUsers() {
+
+                const container = document.getElementById("users");
+
+                container.innerHTML = "";
+
+
+                usersCollection.forEach(user => {
+
+
+                    const div = document.createElement("div");
+
+                    div.className = "user-card";
+
+
+                    div.innerHTML = `
+            <h3>${user.name}</h3>
+        `;
+
+
+                    div.addEventListener("click", () => {
+
+                        getUserDetails(user.id);
+
+                    });
+
+
+                    container.appendChild(div);
+
+
+                });
+
+            }
+
+
+            function getUserDetails(id) {
+
+
+                const xhr = new XMLHttpRequest();
+
+
+                xhr.open(
+                    "GET",
+                    `https://jsonplaceholder.typicode.com/users/${id}`
+                );
+
+
+                xhr.onload = function () {
+
+
+                    const user = JSON.parse(xhr.response);
+
+
+                    const details = document.getElementById("details");
+
+
+                    details.innerHTML = `
+
+        <h2>${user.name}</h2>
+
+        <p>Email: ${user.email}</p>
+
+        <p>Phone: ${user.phone}</p>
+
+        <p>Website: ${user.website}</p>
+
+
+        <button id="postsBtn">
+            Show posts
+        </button>
+
+        <div id="posts"></div>
+
+    `;
+
+
+
+                    document
+                        .getElementById("postsBtn")
+                        .addEventListener("click", () => {
+
+                            getPosts(user.id);
+
+                        });
+
+
+
+                };
+
+
+                xhr.send();
+
+
+            }
+
+
+            function getPosts(userId) {
+
+
+                const xhr = new XMLHttpRequest();
+
+
+                xhr.open(
+                    "GET",
+                    `https://jsonplaceholder.typicode.com/posts?userId=${userId}`
+                );
+
+
+
+                xhr.onload = function () {
+
+
+                    const posts = JSON.parse(xhr.response);
+
+
+                    const container =
+                        document.getElementById("posts");
+
+
+                    container.innerHTML = "<h3>Posts:</h3>";
+
+
+
+                    posts.forEach(post => {
+
+
+                        const div = document.createElement("div");
+
+                        div.className = "post";
+
+
+                        div.innerHTML = `
+
+            <h4>${post.title}</h4>
+
+            <p>${post.body}</p>
+
+        `;
+
+
+                        container.appendChild(div);
+
+
+                    });
+
+
+                };
+
+
+                xhr.send();
+
+
+            }
+
+
+        });
+
     </script>
 </body>
 
