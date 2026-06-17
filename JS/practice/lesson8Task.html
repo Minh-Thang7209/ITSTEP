@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .color {
+            width: 100px;
+            height: 100px;
+            display: inline-block;
+            margin: 10px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Вхід користувача</h2>
+
+    <form onsubmit="login(event)">
+        <label>Ім'я:</label>
+        <input type="text" id="name" required><br><br>
+
+        <label>Пароль:</label>
+        <input type="password" required><br><br>
+
+        <label>
+            <input type="checkbox" id="remember">
+            Запам'ятати мене
+        </label><br><br>
+
+        <button type="submit">Увійти</button>
+    </form>
+
+    <p id="result"></p>
+
+    <form onsubmit="register(event)">
+
+        Email:
+        <input type="email" id="email" required>
+        <br><br>
+
+        Логін:
+        <input type="text" id="login" required>
+        <br><br>
+
+        Пароль:
+        <input type="password" id="pass1" required>
+        <br><br>
+
+        Повторіть пароль:
+        <input type="password" id="pass2" required>
+        <br><br>
+
+        <button>Зареєструватися</button>
+
+    </form>
+
+    <p id="message"></p>
+
+    <form onsubmit="showInfo(event)">
+
+        Ім'я:
+        <input id="name"><br><br>
+
+        Прізвище:
+        <input id="surname"><br><br>
+
+        Вік:
+        <input type="number" id="age"><br><br>
+
+        Місто:
+        <input id="city"><br><br>
+
+        Email:
+        <input id="email"><br><br>
+
+        <button>Відправити</button>
+
+    </form>
+
+    <h3>Введена інформація:</h3>
+
+    <p id="info"></p>
+
+
+    <div id="palette">
+
+        <div class="color" style="background:red"></div>
+        <div class="color" style="background:green"></div>
+        <div class="color" style="background:blue"></div>
+
+    </div>
+
+
+    <h3>Додати колір</h3>
+
+    <form onsubmit="addColor(event)">
+
+        <input type="color" id="color">
+
+        <button>Додати</button>
+
+    </form>
+
+    <script>
+        function login(event) {
+            event.preventDefault();
+
+            let name = document.getElementById("name").value;
+            let remember = document.getElementById("remember").checked;
+
+            document.getElementById("result").innerHTML =
+                `Привіт, ${name}! Я тебе ${remember ? "запам'ятав" : "не запам'ятав"}`;
+        }
+
+        function register(event) {
+            event.preventDefault();
+
+            let email = document.getElementById("email").value;
+            let p1 = document.getElementById("pass1").value;
+            let p2 = document.getElementById("pass2").value;
+
+            if (p1 !== p2) {
+                document.getElementById("message").innerHTML =
+                    "Паролі не співпадають";
+            }
+            else {
+                document.getElementById("message").innerHTML =
+                    `На ${email} пошту надіслано лист із підтвердженням`;
+            }
+        }
+
+        function showInfo(event) {
+
+            event.preventDefault();
+
+            let text =
+                "Ім'я: " + name.value + "<br>" +
+                "Прізвище: " + surname.value + "<br>" +
+                "Вік: " + age.value + "<br>" +
+                "Місто: " + city.value + "<br>" +
+                "Email: " + email.value;
+
+
+            document.getElementById("info").innerHTML = text;
+
+        }
+        function addColor(event) {
+
+            event.preventDefault();
+
+            let color = document.getElementById("color").value;
+
+            let div = document.createElement("div");
+
+            div.className = "color";
+            div.style.background = color;
+
+            document.getElementById("palette").appendChild(div);
+
+        }
+        function addQuestion(event) {
+
+            event.preventDefault();
+
+
+            let q = document.getElementById("question").value;
+            let c = document.getElementById("correct").value;
+            let w = document.getElementById("wrong").value;
+
+
+            let li = document.createElement("li");
+
+
+            li.innerHTML =
+                "<b>" + q + "</b><br>" +
+                "✔ " + c + "<br>" +
+                "✖ " + w;
+
+
+            document.getElementById("questions").appendChild(li);
+
+
+            document.querySelector("form").reset();
+
+        }
+    </script>
+</body>
+
+</html>
