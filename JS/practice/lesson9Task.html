@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Registration and Profile</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 40px;
+        }
+
+        .container {
+            width: 350px;
+        }
+
+        input,
+        select,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 6px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="container">
+
+
+        <div id="registerPage">
+
+
+            <h2>Sign Up</h2>
+
+
+            <form id="registerForm">
+
+
+                Email:
+
+                <input id="email">
+
+
+                Пароль:
+
+                <input type="password" id="password">
+
+
+                Підтвердження пароля:
+
+                <input type="password" id="confirmPassword">
+
+
+                <button>
+                    SignUp
+                </button>
+
+
+            </form>
+
+
+            <p id="registerError" class="error"></p>
+
+
+        </div>
+
+
+
+
+
+
+
+        <div id="profilePage" class="hidden">
+
+
+            <h2>Інформація користувача</h2>
+
+
+            <button onclick="exitAccount()">
+                Exit
+            </button>
+
+
+
+            <form id="profileForm">
+
+
+                Ім'я:
+
+                <input id="name">
+
+
+                Прізвище:
+
+                <input id="surname">
+
+
+                Рік народження:
+
+                <input type="number" id="year">
+
+
+                Стать:
+
+
+                <select id="gender">
+
+                    <option value="">
+                        Оберіть стать
+                    </option>
+
+                    <option>
+                        Чоловіча
+                    </option>
+
+                    <option>
+                        Жіноча
+                    </option>
+
+                </select>
+
+
+
+                Телефон:
+
+                <input id="phone">
+
+
+
+                Skype:
+
+                <input id="skype">
+
+
+                <button>
+                    Save
+                </button>
+
+
+            </form>
+
+
+
+            <p id="profileError"></p>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+    <script>
+
+
+
+        function setCookie(name, value) {
+
+            document.cookie =
+                name + "=" + encodeURIComponent(value) +
+                "; max-age=3600; path=/";
+
+        }
+
+
+
+        function getCookie(name) {
+
+
+            let cookies = document.cookie.split("; ");
+
+
+            for (let item of cookies) {
+
+
+                let parts = item.split("=");
+
+
+                if (parts[0] === name) {
+
+                    return decodeURIComponent(parts[1]);
+
+                }
+
+
+            }
+
+
+            return null;
+
+        }
+
+
+
+
+        function deleteCookie(name) {
+
+            document.cookie =
+                name + "=; max-age=0; path=/";
+
+        }
+
+
+
+
+        
+
+
+        function showProfile() {
+
+
+            document
+                .getElementById("registerPage")
+                .classList.add("hidden");
+
+
+            document
+                .getElementById("profilePage")
+                .classList.remove("hidden");
+
+
+            loadProfile();
+
+
+        }
+
+
+
+        function showRegister() {
+
+
+            document
+                .getElementById("registerPage")
+                .classList.remove("hidden");
+
+
+            document
+                .getElementById("profilePage")
+                .classList.add("hidden");
+
+
+        }
+
+
+
+
+
+        
+        if (getCookie("user")) {
+
+            showProfile();
+
+        }
+
+
+
+
+
+        document
+            .getElementById("registerForm")
+            .addEventListener("submit", function (e) {
+
+
+                e.preventDefault();
+
+
+
+                let email =
+                    document.getElementById("email").value.trim();
+
+
+                let password =
+                    document.getElementById("password").value;
+
+
+                let confirm =
+                    document.getElementById("confirmPassword").value;
+
+
+
+                let errors = [];
+
+
+
+        
+                if (email === "") {
+
+                    errors.push(
+                        "Email є обов'язковим"
+                    );
+
+                }
+
+                else if (
+                    !/^[A-Za-z0-9._-]{3,}@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
+                        .test(email)
+                ) {
+
+                    errors.push(
+                        "Невірний Email"
+                    );
+
+                }
+
+
+
+
+                if (password.length < 6) {
+
+                    errors.push(
+                        "Пароль мінімум 6 символів"
+                    );
+
+                }
+
+
+                if (!/[a-z]/.test(password)) {
+
+                    errors.push(
+                        "Потрібна мала літера"
+                    );
+
+                }
+
+
+                if (!/[A-Z]/.test(password)) {
+
+                    errors.push(
+                        "Потрібна велика літера"
+                    );
+
+                }
+
+
+                if (!/[0-9]/.test(password)) {
+
+                    errors.push(
+                        "Потрібна цифра"
+                    );
+
+                }
+
+
+
+
+                if (password !== confirm) {
+
+                    errors.push(
+                        "Паролі не співпадають"
+                    );
+
+                }
+
+
+
+
+
+                if (errors.length) {
+
+
+                    document.getElementById("registerError")
+                        .innerHTML =
+                        errors.join("<br>");
+
+                }
+
+                else {
+
+
+                    setCookie(
+                        "user",
+                        JSON.stringify({
+                            email,
+                            password
+                        })
+                    );
+
+
+                    showProfile();
+
+
+                }
+
+
+
+            });
+
+
+
+
+
+
+
+  
+
+
+        function loadProfile() {
+
+
+            let data = getCookie("profile");
+
+
+            if (data) {
+
+
+                let user = JSON.parse(data);
+
+
+                name.value = user.name;
+
+                surname.value = user.surname;
+
+                year.value = user.year;
+
+                gender.value = user.gender;
+
+                phone.value = user.phone;
+
+                skype.value = user.skype;
+
+
+            }
+
+
+        }
+
+
+
+
+
+
+
+        document
+            .getElementById("profileForm")
+            .addEventListener("submit", function (e) {
+
+
+                e.preventDefault();
+
+
+
+                let errors = [];
+
+
+                let letters = /^[А-Яа-яA-Za-z]+$/;
+
+
+
+
+                if (
+                    name.value === "" ||
+                    !letters.test(name.value) ||
+                    name.value.length > 20
+                ) {
+
+                    errors.push(
+                        "Некоректне ім'я"
+                    );
+
+                }
+
+
+                if (
+                    surname.value === "" ||
+                    !letters.test(surname.value) ||
+                    surname.value.length > 20
+                ) {
+
+                    errors.push(
+                        "Некоректне прізвище"
+                    );
+
+                }
+
+
+
+                let current =
+                    new Date().getFullYear();
+
+
+                if (
+                    year.value < 1900 ||
+                    year.value > current
+                ) {
+
+                    errors.push(
+                        "Невірний рік"
+                    );
+
+                }
+
+
+
+                if (gender.value === "") {
+
+                    errors.push(
+                        "Оберіть стать"
+                    );
+
+                }
+
+
+
+                if (phone.value) {
+
+
+                    let digits =
+                        phone.value.replace(/\D/g, "");
+
+
+                    if (
+                        !/^[0-9 ()-]+$/.test(phone.value)
+                        ||
+                        digits.length < 10
+                        ||
+                        digits.length > 12
+                    ) {
+
+                        errors.push(
+                            "Невірний телефон"
+                        );
+
+                    }
+
+
+                }
+
+
+
+                if (
+                    skype.value &&
+                    !/^[A-Za-z0-9.-]+$/.test(skype.value)
+                ) {
+
+                    errors.push(
+                        "Невірний Skype"
+                    );
+
+                }
+
+
+
+
+                if (errors.length) {
+
+
+                    profileError.className = "error";
+
+
+                    profileError.innerHTML =
+                        errors.join("<br>");
+
+                }
+
+
+                else {
+
+
+                    let profile = {
+
+                        name: name.value,
+
+                        surname: surname.value,
+
+                        year: year.value,
+
+                        gender: gender.value,
+
+                        phone: phone.value,
+
+                        skype: skype.value
+
+                    };
+
+
+
+                    setCookie(
+                        "profile",
+                        JSON.stringify(profile)
+                    );
+
+
+
+                    profileError.className = "success";
+
+                    profileError.innerHTML =
+                        "Дані збережено";
+
+
+                }
+
+
+
+            });
+
+        function exitAccount() {
+
+
+            deleteCookie("user");
+
+            deleteCookie("profile");
+
+
+            showRegister();
+
+
+        }
+
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>
