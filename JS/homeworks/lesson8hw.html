@@ -6,151 +6,324 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        body {
+            font-family: Arial;
+            margin: 30px;
+        }
+
         #messageList {
             list-style: none;
             padding: 0;
         }
 
         #messageList li {
-            background-color: #f4f4f4;
-            margin-bottom: 10px;
+            background: #eee;
+            margin: 10px;
             padding: 15px;
             border-radius: 5px;
-        }
-
-        form {
-            margin-top: 30px;
-        }
-
-        input,
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            box-sizing: border-box;
-        }
-
-        button {
-            padding: 10px 20px;
-            cursor: pointer;
         }
 
         .author {
             font-weight: bold;
         }
 
-        #result {
-            margin-top: 20px;
-            font-weight: bold;
+        form {
+            margin-bottom: 40px;
         }
+
+        input,
+        textarea,
+        select {
+            width: 300px;
+            padding: 8px;
+            margin: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+        }
+
+        .result {
+            font-weight: bold;
+            margin: 20px;
+        }
+    </style>
     </style>
 </head>
 
 <body>
+    <h1>Завдання 1. Форум</h1>
+
+
     <ul id="messageList">
+
         <li>
             <span class="author">Олена:</span>
             Вітаю всіх на форумі!
         </li>
+
         <li>
             <span class="author">Іван:</span>
-            Бажаю гарного дня!
+            Гарного дня!
         </li>
+
     </ul>
 
+
+
     <form id="messageForm">
-        <label for="author">Ім'я</label>
-        <input type="text" id="author" required>
-        <label for="message">Повідомлення:</label>
-        <textarea id="message" rows="4" required></textarea>
-        <button type="submit">Додати повідомлення</button>
+
+        <label>Ім'я:</label><br>
+        <input id="author" required>
+
+        <br>
+
+        <label>Повідомлення:</label><br>
+
+        <textarea id="message" required></textarea>
+
+        <br>
+
+        <button>
+            Додати повідомлення
+        </button>
+
     </form>
 
-    <form id="quizFom">
-        <div class="question">
-            <p>1) How many letters are there in the word "Hello"?</p>
-            <label>
-                <input type="radio" name="q1" value="correct">
-                5
-            </label>
-            <label>
-                <input type="radio" name="q1" value="wrong">
-                2
-            </label>
-        </div>
 
-        <div class="question">
-            <p>2) How many letters are there in the word "World"</p>
-            <label>
-                <input type="radio" name="q2" value="wrong">
-                4
-            </label>
-            <label>
-                <input type="radio" name="q2" value="correct">
-                5
-            </label>
-        </div>
-        <button type="button" onclick="checkAnswer()">Finish</button>
+
+
+
+    <h1>Завдання 2. Тест</h1>
+
+
+    <form id="quiz">
+
+
+        <p>
+            1. Скільки букв у слові "Hello"?
+        </p>
+
+        <input type="radio" name="q1" value="1">
+        5
+
+        <input type="radio" name="q1" value="0">
+        2
+
+
+
+        <p>
+            2. HTML це:
+        </p>
+
+        <input type="radio" name="q2" value="1">
+        Мова розмітки
+
+        <input type="radio" name="q2" value="0">
+        Графічний редактор
+
+
+
+        <br><br>
+
+        <button type="button" onclick="checkQuiz()">
+            Завершити тест
+        </button>
+
+
     </form>
-    <div id="result"></div>
+
+
+    <p id="quizResult" class="result"></p>
+
+
+
+
+
+    <h1>Завдання 3. Стилізований текст</h1>
+
+
+
+    <textarea id="text" placeholder="Введіть текст"></textarea>
+
+
+    <br>
+
 
     <label>
         <input type="checkbox" id="bold">
-        Bold
-    </label>
-    <label>
-        <input type="checkbox" id="Underline">
-        Underline
-    </label>
-    <label>
-        <input type="checkbox" id="Italics">
-        Italics
+        Жирний
     </label>
 
-    <input type="radio" name="align" value="Left" checked> Left
-    <input type="radio" name="align" value="Right"> Right
-    <input type="radio" name="align" value="Justify"> Justify
-    <textarea id="text" rows="4" cols="40"></textarea>
-    
-    <button onclick="showText()">Show text</button>
 
-    <p id="result"></p>
+    <label>
+        <input type="checkbox" id="italic">
+        Курсив
+    </label>
+
+
+    <label>
+        <input type="checkbox" id="underline">
+        Підкреслений
+    </label>
+
+
+    <br>
+
+
+    Вирівнювання:
+
+    <br>
+
+
+    <input type="radio" name="align" value="left" checked>
+    Ліворуч
+
+
+    <input type="radio" name="align" value="center">
+    По центру
+
+
+    <input type="radio" name="align" value="right">
+    Праворуч
+
+
+
+    <br><br>
+
+
+    <button onclick="showText()">
+        Показати текст
+    </button>
+
+
+    <p id="styledText"></p>
+
+
+
     <script>
-        const form = document.getElementById("messageForm");
-        const messageList = document.getElementById("messageList");
+        document
+            .getElementById("messageForm")
+            .addEventListener("submit", function (e) {
 
-        form.addEventListener("submit", function (event) {
-            event.preventDefault();
 
-            const author = document.getElementById("author").value;
-            const message = document.getElementById("message").value;
+                e.preventDefault();
 
-            if (author && message) {
-                const li = document.createElement("li");
 
-                li.innerHTML = `
-                    <span class="author">${author}:</span>
-                    ${message}
-                `;
-                messageList.appendChild(li);
-                form.reset();
-            }
-        });
+                let author =
+                    document.getElementById("author").value;
 
-        function checkAnswer() {
+
+                let message =
+                    document.getElementById("message").value;
+
+
+                let li = document.createElement("li");
+
+
+                li.innerHTML =
+                    `
+<span class="author">
+${author}:
+</span>
+${message}
+`;
+
+
+                document
+                    .getElementById("messageList")
+                    .appendChild(li);
+
+
+                this.reset();
+
+
+            });
+
+
+
+
+
+        // ===== Завдання 2 =====
+
+
+        function checkQuiz() {
+
+
             let score = 0;
-            const q1 = document.querySelector('input[name="q1"]:checked');
-            const q2 = document.querySelector('input[name="q2"]:checked');
-            if (q1 && q1.value === "correct") {
-                score++;
-            }
-            if (q2 && q2.value === "correct") {
-                score++;
-            }
-            document.getElementById("result").textContent =
-                "Result: " + score + `correct answers to 2 questions`;
+
+
+            let answers =
+                document.querySelectorAll(
+                    "#quiz input:checked"
+                );
+
+
+            answers.forEach(function (a) {
+
+                score += Number(a.value);
+
+            });
+
+
+            document
+                .getElementById("quizResult")
+                .innerHTML =
+                "Правильних відповідей: "
+                + score;
+
+
         }
+
+
+
+
+
+
+        // ===== Завдання 3 =====
+
+
+        function showText() {
+
+
+            let output =
+                document.getElementById("styledText");
+
+
+            output.innerHTML =
+                document.getElementById("text").value;
+
+
+
+            output.style.fontWeight =
+                document.getElementById("bold").checked
+                    ? "bold" : "normal";
+
+
+
+            output.style.fontStyle =
+                document.getElementById("italic").checked
+                    ? "italic" : "normal";
+
+
+
+            output.style.textDecoration =
+                document.getElementById("underline").checked
+                    ? "underline" : "none";
+
+
+
+            let align =
+                document.querySelector(
+                    'input[name="align"]:checked'
+                ).value;
+
+
+            output.style.textAlign = align;
+
+
+        }
+
 
     </script>
 </body>
