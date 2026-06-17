@@ -1,21 +1,434 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        body {
+            font-family: Arial;
+            margin: 30px;
+        }
 
+        h1 {
+            color: #333;
+        }
+
+        .color-item {
+            display: inline-block;
+            width: 150px;
+            height: 120px;
+            margin: 10px;
+            border: 1px solid #555;
+            border-radius: 8px;
+            text-align: center;
+            padding-top: 15px;
+            box-sizing: border-box;
+        }
+
+        .color-box {
+            width: 80px;
+            height: 50px;
+            margin: auto;
+            border: 1px solid black;
+        }
+
+
+        input,
+        select {
+            width: 250px;
+            padding: 8px;
+            margin: 5px;
+        }
+
+
+        button {
+            padding: 10px 25px;
+            cursor: pointer;
+        }
+
+
+        .error {
+            color: red;
+        }
     </style>
 </head>
+
 <body>
-    <h2>Create new color</h2>
-    <div>
-        
-    </div>
+    <h1>Палітра кольорів</h1>
+
+
+    <div id="palette"></div>
+
+
+    <h2>Додати новий колір</h2>
+
+
+    <form id="colorForm">
+
+
+        <label>
+            Назва:
+        </label>
+        <br>
+
+        <input id="name">
+
+        <br>
+
+
+        <label>
+            Тип:
+        </label>
+        <br>
+
+
+        <select id="type">
+
+            <option value="RGB">
+                RGB
+            </option>
+
+            <option value="RGBA">
+                RGBA
+            </option>
+
+            <option value="HEX">
+                HEX
+            </option>
+
+        </select>
+
+
+        <br>
+
+
+        <label>
+            Код кольору:
+        </label>
+
+        <br>
+
+        <input id="code">
+
+
+        <br>
+
+
+        <button>
+            Save
+        </button>
+
+
+    </form>
+
+
+
+    <p class="error" id="error"></p>
+
     <script>
+
+        let colors = [];
+
+
+        function saveCookie() {
+
+
+            let data = JSON.stringify(colors);
+
+
+            document.cookie =
+                "colors=" + encodeURIComponent(data)
+                + "; max-age=" + (3 * 60 * 60)
+                + "; path=/";
+
+
+        }
+
+
+
+        function loadCookie() {
+
+
+            let cookie = document.cookie
+                .split("; ")
+                .find(row => row.startsWith("colors="));
+
+
+            if (cookie) {
+
+                colors =
+                    JSON.parse(
+                        decodeURIComponent(
+                            cookie.split("=")[1]
+                        )
+                    );
+
+            }
+
+        }
+
+
+
+
+        function validateName(name) {
+
+
+            if (name === "")
+                return "Назва є обов'язковою";
+
+
+            if (!/^[а-яА-Яa-zA-Z]+$/.test(name))
+                return "Назва повинна містити тільки літери";
+
+
+
+            let exists =
+                colors.some(
+                    c => c.name.toLowerCase()
+                        ===
+                        name.toLowerCase()
+                );
+
+
+            if (exists)
+                return "Така назва вже існує";
+
+
+
+            return "";
+
+        }
+
+
+
+
+        function validateCode(type, code) {
+
+
+
+            if (type === "RGB") {
+
+
+                let arr = code.split(",");
+
+
+                if (arr.length !== 3)
+                    return "RGB повинен містити 3 числа";
+
+
+                for (let n of arr) {
+
+                    if (isNaN(n) || n < 0 || n > 255)
+                        return "RGB числа мають бути від 0 до 255";
+
+                }
+
+
+            }
+
+
+
+
+            if (type === "RGBA") {
+
+
+                let arr = code.split(",");
+
+
+                if (arr.length !== 4)
+                    return "RGBA повинен містити 4 числа";
+
+
+                for (let i = 0; i < 3; i++) {
+
+                    if (isNaN(arr[i]) ||
+                        arr[i] < 0 ||
+                        arr[i] > 255)
+
+                        return "Перші числа RGBA від 0 до 255";
+
+                }
+
+
+
+                if (isNaN(arr[3]) ||
+                    arr[3] < 0 ||
+                    arr[3] > 1)
+
+                    return "Останнє число RGBA від 0 до 1";
+
+
+            }
+
+
+
+
+            if (type === "HEX") {
+
+
+                if (!/^#[0-9A-Fa-f]{6}$/.test(code))
+
+                    return "HEX формат: #FFFFFF";
+
+
+            }
+
+
+            return "";
+
+        }
+
+
+
+
+        document
+            .getElementById("colorForm")
+            .addEventListener("submit", function (e) {
+
+
+                e.preventDefault();
+
+
+
+                let name =
+                    document.getElementById("name").value.trim();
+
+
+                let type =
+                    document.getElementById("type").value;
+
+
+                let code =
+                    document.getElementById("code").value.trim();
+
+
+
+                let error =
+                    validateName(name);
+
+
+
+                if (error === "")
+                    error =
+                        validateCode(type, code);
+
+
+
+                if (error) {
+
+                    document
+                        .getElementById("error")
+                        .innerHTML = error;
+
+                    return;
+
+                }
+
+
+
+
+                colors.push({
+
+                    name: name,
+                    type: type,
+                    code: code
+
+                });
+
+
+
+                saveCookie();
+
+
+                showColors();
+
+
+                this.reset();
+
+
+
+                document
+                    .getElementById("error")
+                    .innerHTML = "";
+
+
+            });
+
+
+
+
+
+
+        function showColors() {
+
+
+            let palette =
+                document.getElementById("palette");
+
+
+            palette.innerHTML = "";
+
+
+
+            colors.forEach(c => {
+
+
+                let div =
+                    document.createElement("div");
+
+
+                div.className = "color-item";
+
+
+
+                let box =
+                    document.createElement("div");
+
+
+                box.className = "color-box";
+
+
+
+                box.style.backgroundColor = c.code;
+
+
+
+                div.innerHTML =
+                    `
+<b>${c.name}</b>
+<br>
+${c.type}
+<br>
+${c.code}
+`;
+
+
+
+                div.prepend(box);
+
+
+
+                palette.appendChild(div);
+
+
+
+            });
+
+
+        }
+
+
+
+
+        loadCookie();
+
+        showColors();
+
 
 
     </script>
 </body>
+
 </html>
