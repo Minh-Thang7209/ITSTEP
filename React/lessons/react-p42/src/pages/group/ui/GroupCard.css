@@ -1,0 +1,24 @@
+.strike-price {
+    text-decoration: line-through;
+    text-decoration-color: brown;
+    text-decoration-thickness: 2px;
+    font-size: small;
+}
+
+.card-title {
+    display: -webkit-box;
+    display: box;
+    -webkit-box-orient: vertical;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.card-text {
+    display: -webkit-box;
+    display: box;
+    -webkit-box-orient: vertical;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
