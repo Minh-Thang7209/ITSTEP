@@ -10,6 +10,17 @@ export default function GroupsWidget() {
         GroupApi.allGroups().then(setGroups);
     }, []);
     return <div>
-        Groups Widget
+        <div className='groups-crop'>
+            <div className='groups-container'>
+                {groups.map(g => <div className="col" key={g.id}>
+               
+                    <div className='container'>
+                        <img src={g.imageUrl} alt={g.name} className='card-img' />
+                        {g.name}
+                    </div>
+                    
+                </div>)}
+            </div>
+        </div>
     </div>
 }
