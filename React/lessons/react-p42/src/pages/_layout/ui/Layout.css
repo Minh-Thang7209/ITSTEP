@@ -8,9 +8,15 @@
 main {
     flex: 1;
 }
+
 footer {
     padding: 1em 2em;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px 30px;
 }
+
 .nav-link {
     font-size: larger;
 }
