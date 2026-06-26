@@ -3,7 +3,8 @@
     flex-direction: row;
     gap: 5px;
 }
-.groups-container div{
+
+.groups-container > div {
     text-align: center;
 }
 
@@ -11,7 +12,18 @@
     width: 144px;
 }
 
-.groups-crop{
+.groups-crop {
     width: 100%;
     overflow: hidden;
+    flex: 1;
+}
+
+.group-widget {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tooltip {
+    white-space: pre-line;
 }
