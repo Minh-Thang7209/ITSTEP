@@ -4,8 +4,10 @@
     gap: 5px;
 }
 
-.groups-container > div {
+.groups-container > a {
     text-align: center;
+    text-decoration: none;
+    color: #444;
 }
 
 .card-img {
@@ -13,7 +15,6 @@
 }
 
 .groups-crop {
-    width: 100%;
     overflow: hidden;
     flex: 1;
 }

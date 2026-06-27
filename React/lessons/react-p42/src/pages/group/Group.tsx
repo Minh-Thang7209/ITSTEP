@@ -12,8 +12,11 @@ export default function Group() {
     const [groupProduct, setGroupProduct] = useState<IGroupProduct | undefined>();
 
     useEffect(() => {
+        // console.log("Group Effect start");
         GroupApi.groupDetails(slug!).then(setGroupProduct);
-    }, []);
+        // return () => {console.log("Group Effect finish")};
+    }, [slug]); // повторити цей эффект тільки якщо slug змінился
+
 
     return <div className='container'>
         <h1>{slug}</h1>
@@ -30,3 +33,6 @@ function GroupView({ groupProduct }: { groupProduct: IGroupProduct }) {
         {groupProduct.products.map(gp => <ProductCard productBrief={gp} key={gp.id} />)}
     </div>;
 }
+
+
+// Property drilling

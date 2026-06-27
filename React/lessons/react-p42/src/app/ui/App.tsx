@@ -4,19 +4,27 @@ import Layout from '../../pages/_layout/Layout';
 import Home from '../../pages/home/Home';
 import Group from '../../pages/group/Group';
 import NotFound from '../../pages/not_found/NotFound';
+import AppContext from '../../features/_context/AppContext';
+import { useState } from 'react';
+import Cart from '../../pages/cart/Cart';
 
 export default function App() {
+    const [cart, setCart] = useState<Array<string>>([]);
     return (
-    <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<Layout />} >
-                <Route index element={<Home />} />
-                <Route path="group/:slug" element={<Group />} />
+       
+        <AppContext.Provider value={{cart}}>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Layout />} >
+                        <Route index element={<Home />} />
+                        <Route path="cart" element={<Cart />} />
+                        <Route path="group/:slug" element={<Group />} />
 
-                <Route path='*' element={<NotFound />} />
-            </Route>
-        </Routes>
-    </BrowserRouter>
+                        <Route path='*' element={<NotFound />} />
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </AppContext.Provider>
     );
 }
 /*
