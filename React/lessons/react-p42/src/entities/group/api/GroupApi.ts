@@ -104,14 +104,14 @@ const groupProducts: Record<string, IGroupProduct> = {
             {
                 id: "1-3",
                 name: "GTA VI",
-                price: 49.99,
+                price: 79.99,
                 imageUrl: "/img/Gemini_Generated_Image_GTA_6.png",
                 stock: -1
             },
             {
                 id: "1-4",
                 name: "Hollow knight",
-                price: 49.99,
+                price: 14.99,
                 imageUrl: "/img/Gemini_Generated_Image_Hollow_knight.png",
                 stock: -1
             },

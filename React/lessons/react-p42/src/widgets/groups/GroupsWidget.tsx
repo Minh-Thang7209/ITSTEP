@@ -20,7 +20,7 @@ export default function GroupsWidget() {
         cropRef.current!.scrollLeft += Math.min(sr, cropRef.current!.clientWidth);
     };
 
-    const rigthButtonClick = () => {
+    const rightButtonClick = () => {
         cropRef.current!.scrollLeft -= Math.min(cropRef.current!.scrollLeft, cropRef.current!.clientWidth);
     };
     return <div className='group-widget'>
@@ -47,7 +47,7 @@ export default function GroupsWidget() {
                 </Link>)}
             </div>
         </div>
-        <button className='btn btn-outline-secondary' onClick={rigthButtonClick}>
+        <button className='btn btn-outline-secondary' onClick={rightButtonClick}>
             <i className='bi bi-caret-right'></i>
         </button>
     </div>;
