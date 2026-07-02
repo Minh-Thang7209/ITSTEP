@@ -8,22 +8,22 @@ import GroupsWidget from '../../widgets/groups/GroupsWidget';
 
 export default function Group() {
     const { slug } = useParams();
-
     const [groupProduct, setGroupProduct] = useState<IGroupProduct | undefined>();
 
     useEffect(() => {
-        // console.log("Group Effect start");
+        //console.log("Group Effect start");
         GroupApi.groupDetails(slug!).then(setGroupProduct);
-        // return () => {console.log("Group Effect finish")};
-    }, [slug]); // повторити цей эффект тільки якщо slug змінился
 
+        //return () => {console.log("Group Effect finish")};
+    }, [slug, setGroupProduct]);
 
     return <div className='container'>
         <h1>{slug}</h1>
-        {groupProduct ? <>
-            <GroupsWidget />
-            <GroupView groupProduct={groupProduct} />
-        </>
+        {groupProduct
+            ? <>
+                <GroupsWidget />
+                <GroupView groupProduct={groupProduct} />
+            </>
             : <p>Loading...</p>}
     </div>
 }
@@ -33,6 +33,5 @@ function GroupView({ groupProduct }: { groupProduct: IGroupProduct }) {
         {groupProduct.products.map(gp => <ProductCard productBrief={gp} key={gp.id} />)}
     </div>;
 }
-
 
 // Property drilling

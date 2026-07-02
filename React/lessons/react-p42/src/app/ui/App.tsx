@@ -1,3 +1,5 @@
+import '../../shared/extensions/NumberExtensions';
+import { useState } from "react";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Layout from '../../pages/_layout/Layout';
@@ -5,14 +7,22 @@ import Home from '../../pages/home/Home';
 import Group from '../../pages/group/Group';
 import NotFound from '../../pages/not_found/NotFound';
 import AppContext from '../../features/_context/AppContext';
-import { useState } from 'react';
-import Cart from '../../pages/cart/Cart';
-import type ICartItem from '../../entities/cart/model/ICartItem';
+import Cart from "../../pages/cart/Cart";
+import type ICart from "../../entities/cart/model/ICart";
+import CartApi from "../../entities/cart/CartApi";
+
 
 export default function App() {
-    const [cart, setCart] = useState<Array<ICartItem>>([]);
+    const [cart, setCart] = useState<ICart>({ cartItems: [], price: 0 });
+
+    const updateCart = (cart: ICart): void => {
+        // перед зміною стану здійснюємо запит на обчислення знижок по кошику
+        CartApi.calculateCart(cart)
+            .then(setCart);
+    }
+
     return (
-        <AppContext.Provider value={{cart, setCart}}>
+        <AppContext.Provider value={{ cart, setCart: updateCart }}>
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Layout />} >

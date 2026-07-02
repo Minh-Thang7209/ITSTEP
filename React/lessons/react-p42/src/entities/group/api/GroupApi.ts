@@ -91,7 +91,7 @@ const groupProducts: Record<string, IGroupProduct> = {
                 description: "Fortnite, Battale Royale",
                 price: 1.0,
                 imageUrl: "/img/Gemini_Generated_Image_Fortnite.png",
-                actionPrice: 30.00,
+                actionPrice: 3.00,
                 stock: -1,
             },
             {
@@ -99,6 +99,7 @@ const groupProducts: Record<string, IGroupProduct> = {
                 name: "Goat Simulator",
                 price: 49.99,
                 imageUrl: "/img/Gemini_Generated_Image_Goat_Simulator_3.png",
+                actionPrice: 30.00,
                 stock: -1
             },
             {
